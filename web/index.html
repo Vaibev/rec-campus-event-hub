@@ -1699,14 +1699,14 @@
       const { value: pass } = await Swal.fire({
         title: 'Department Admin Passcode',
         input: 'password',
-        inputPlaceholder: 'Enter passcode (default: admin123)',
+        inputPlaceholder: 'Enter passcode',
         showCancelButton: true,
         background: '#0d111a',
         color: '#f8fafc',
         confirmButtonColor: '#7c3aed'
       });
 
-      if (pass === "admin123" || pass === "#rec") {
+      if (pass === "#rec") {
         isAdmin = true;
         document.getElementById("adminBtnLabel").innerText = "Exit Admin";
         const mobileLabel = document.getElementById("adminBtnLabelMobile");
