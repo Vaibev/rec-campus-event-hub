@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REC Campus Event Hub • Rajalakshmi Engineering College</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS, Phosphor Icons & SweetAlert2 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            rec: {
+              bg: '#07090e',
+              card: '#0d111a',
+              cardHover: '#131926',
+              purple: '#7c3aed',
+              purpleGlow: '#8b5cf6',
+              gold: '#fbbf24',
+              goldHover: '#f59e0b',
+              border: 'rgba(255, 255, 255, 0.08)',
+              borderGlow: 'rgba(124, 58, 237, 0.35)',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #07090e;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    .ambient-glow {
+      background: 
+        radial-gradient(circle at 15% 15%, rgba(124, 58, 237, 0.18) 0%, transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(251, 191, 36, 0.10) 0%, transparent 35%),
+        radial-gradient(circle at 50% 80%, rgba(99, 102, 241, 0.12) 0%, transparent 50%);
+    }
+
+    .cyber-grid-bg {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    }
+
+    .glass-card {
+      background: rgba(13, 17, 26, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .glass-card-hover {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card-hover:hover {
+      transform: translateY(-4px);
+      border-color: rgba(124, 58, 237, 0.45);
+      box-shadow: 0 12px 30px -10px rgba(124, 58, 237, 0.25);
+    }
+
+    @keyframes subtleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .floating-card {
+      animation: subtleFloat 6s ease-in-out infinite;
+    }
+    .floating-card-delayed {
+      animation: subtleFloat 7s ease-in-out infinite 1.5s;
+    }
+
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #07090e; }
+    ::-webkit-scrollbar-thumb { background: #1e2638; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+    @media print {
+      body * { visibility: hidden; }
+      #attendancePrintSection, #attendancePrintSection * { visibility: visible; }
+      #attendancePrintSection {
+        position: absolute; left: 0; top: 0; width: 100%;
+        background: white !important; color: black !important;
+      }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body class="selection:bg-rec-purple selection:text-white min-h-screen flex flex-col antialiased">
+
+
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 bg-[#07090e]/90 backdrop-blur-xl border-b border-white/5 no-print">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 h-20 sm:h-24 flex items-center justify-between gap-2 sm:gap-4">
+      
+      <!-- Brand Left -->
+      <div class="flex items-center gap-2 sm:gap-3.5 cursor-pointer min-w-0" onclick="navigate('home')">
+        <img src="logo.png" alt="REC Crest" class="h-10 sm:h-14 w-auto object-contain drop-shadow-[0_2px_10px_rgba(251,191,36,0.35)] shrink-0 transition-transform hover:scale-105">
+        <div class="flex flex-col justify-center min-w-0">
+          
+          <!-- Line 1: College Name & Autonomous Badge -->
+          <div class="flex items-center gap-1 sm:gap-2">
+            <span class="font-display font-extrabold text-xs sm:text-base tracking-tight text-white uppercase leading-none truncate">
+              Rajalakshmi Engineering College
+            </span>
+            <span class="text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5 rounded bg-rec-gold/15 text-rec-gold border border-rec-gold/30 uppercase tracking-wider shrink-0">
+              AUTONOMOUS
+            </span>
+          </div>
+
+          <!-- Line 2: NAAC & University Accreditation -->
+          <div class="hidden sm:flex items-center gap-1.5 text-[10px] text-slate-400 mt-1 font-mono">
+            <span>NAAC 'A++' GRADE</span>
+            <span class="text-slate-600">•</span>
+            <span>AFFILIATED TO ANNA UNIVERSITY</span>
+          </div>
+
+          <!-- Line 3: Location (Below NAAC) & Event Hub Badge -->
+          <div class="hidden sm:flex items-center gap-2 text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
+            <span>Thandalam, Chennai – 602105</span>
+            <span class="text-slate-600">•</span>
+            <span class="font-semibold text-rec-purpleGlow tracking-wider uppercase text-[9px] sm:text-[10px] bg-purple-950/60 px-2 py-0.5 rounded-full border border-purple-500/20">
+              CAMPUS EVENT HUB
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+      <nav class="hidden lg:flex items-center gap-1 bg-white/[0.03] border border-white/5 p-1 rounded-2xl text-xs font-semibold">
+        <button onclick="navigate('home')" id="nav-home" class="nav-tab px-4 py-2 rounded-xl text-white bg-rec-purple shadow-sm transition-all">Home</button>
+        <button onclick="navigate('events')" id="nav-events" class="nav-tab px-4 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all">Events</button>
+        <button onclick="navigate('clubs')" id="nav-clubs" class="nav-tab px-4 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all">Clubs</button>
+        <button onclick="navigate('calendar')" id="nav-calendar" class="nav-tab px-4 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all">Calendar</button>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <button onclick="openSearchModal()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/[0.04] border border-white/10 hover:border-rec-purple/40 text-slate-300 hover:text-white flex items-center justify-center transition-all" title="Search (Ctrl+K)">
+          <i class="ph-bold ph-magnifying-glass text-xs sm:text-sm"></i>
+        </button>
+
+        <button id="adminBtn" onclick="toggleAdminPrompt()" class="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl border border-purple-500/30 bg-purple-950/30 text-purple-200 hover:bg-purple-900/40 text-[11px] sm:text-xs font-bold transition-all">
+          <i class="ph-bold ph-shield-check text-xs sm:text-sm text-rec-purpleGlow"></i>
+          <span id="adminBtnLabel" class="hidden sm:inline">Admin Login</span>
+          <span id="adminBtnLabelMobile" class="sm:hidden">Admin</span>
+        </button>
+
+        <button id="headerHostBtn" onclick="openCreateModal()" class="hidden items-center gap-1 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 text-slate-950 font-bold text-[11px] sm:text-xs shadow-lg active:scale-95 transition-all">
+          <i class="ph-bold ph-plus-circle text-xs sm:text-sm"></i>
+          <span class="hidden sm:inline">Host Event</span>
+          <span class="sm:hidden">Host</span>
+        </button>
+
+        <button onclick="toggleMobileNav()" class="lg:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 active:scale-95">
+          <i class="ph-bold ph-list text-base sm:text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileNav" class="hidden lg:hidden border-t border-white/10 bg-[#07090e] px-4 py-3 space-y-2 text-xs font-semibold">
+      <button onclick="navigate('home'); toggleMobileNav();" class="w-full text-left p-2.5 rounded-xl hover:bg-white/5 flex items-center justify-between">
+        <span>Home</span> <i class="ph-bold ph-arrow-right text-slate-500"></i>
+      </button>
+      <button onclick="navigate('events'); toggleMobileNav();" class="w-full text-left p-2.5 rounded-xl hover:bg-white/5 flex items-center justify-between">
+        <span>Explore Events</span> <i class="ph-bold ph-arrow-right text-slate-500"></i>
+      </button>
+      <button onclick="navigate('clubs'); toggleMobileNav();" class="w-full text-left p-2.5 rounded-xl hover:bg-white/5 flex items-center justify-between">
+        <span>Campus Clubs</span> <i class="ph-bold ph-arrow-right text-slate-500"></i>
+      </button>
+      <button onclick="navigate('calendar'); toggleMobileNav();" class="w-full text-left p-2.5 rounded-xl hover:bg-white/5 flex items-center justify-between">
+        <span>Campus Calendar</span> <i class="ph-bold ph-arrow-right text-slate-500"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- VIEW 1: HOMEPAGE -->
+  <section id="view-home" class="page-view flex-1 ambient-glow cyber-grid-bg overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-12 sm:pt-16 sm:pb-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <div class="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-rec-purple/40 bg-purple-950/40 text-rec-purpleGlow text-[11px] sm:text-xs font-bold tracking-wider uppercase backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-rec-gold animate-pulse"></span>
+            REC CAMPUS • 2026
+          </div>
+
+          <h1 class="font-display text-3xl sm:text-5xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+            YOUR CAMPUS.<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-rec-purpleGlow via-indigo-300 to-rec-gold">
+              YOUR CLUBS.
+            </span><br>
+            YOUR EVENTS.
+          </h1>
+
+          <p class="text-slate-400 text-xs sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+            Discover everything happening at Rajalakshmi Engineering College — from 24H sprint hackathons and workshops to national symposiums, sports leagues, and cultural fests.
+          </p>
+
+          <div class="pt-1 max-w-lg mx-auto lg:mx-0">
+            <div class="relative flex items-center bg-[#0d111a] border border-white/10 hover:border-rec-purple/40 rounded-2xl p-1.5 shadow-2xl transition-all">
+              <i class="ph-bold ph-magnifying-glass text-slate-400 text-base sm:text-lg ml-3 mr-2"></i>
+              <input type="text" id="heroSearchInput" onkeydown="handleHeroSearch(event)" placeholder="Search events, clubs or opportunities..." class="w-full bg-transparent text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none">
+              <button onclick="runHeroSearch()" class="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-rec-purple hover:bg-rec-purple/90 text-white font-bold text-xs shadow-md transition-all shrink-0">
+                Search
+              </button>
+            </div>
+          </div>
+
+          <div class="pt-2 flex flex-col sm:flex-row justify-center lg:justify-start items-stretch sm:items-center gap-3 w-full sm:w-auto">
+            <button onclick="navigate('events')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 text-slate-950 font-bold px-6 py-3.5 rounded-2xl shadow-xl shadow-amber-400/20 text-xs sm:text-sm transition-all active:scale-95">
+              Explore Events <i class="ph-bold ph-arrow-right"></i>
+            </button>
+            <button onclick="navigate('clubs')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-semibold px-6 py-3.5 rounded-2xl text-xs sm:text-sm transition-all active:scale-95">
+              Explore Clubs <i class="ph-bold ph-users-three text-rec-purpleGlow"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 relative flex justify-center items-center py-4 overflow-hidden">
+          <div class="w-full max-w-md relative">
+            <div class="absolute -inset-4 bg-gradient-to-tr from-rec-purple/20 to-rec-gold/20 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+
+            <div class="glass-card rounded-2xl p-4 shadow-2xl border-white/10 mb-4 floating-card relative z-20">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">🔥 Flagship Hackathon</span>
+                <span class="text-[11px] font-mono text-rec-gold flex items-center gap-1"><i class="ph-bold ph-calendar"></i> Oct 28</span>
+              </div>
+              <h4 class="font-bold text-white text-sm">Phoenix 24H Campus Hackathon</h4>
+              <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5"><i class="ph-bold ph-map-pin text-rec-purpleGlow"></i> Tech Block Auditorium</p>
+            </div>
+
+            <div class="glass-card rounded-2xl p-4 shadow-2xl border-white/10 ml-2 sm:ml-8 -mt-2 floating-card-delayed relative z-10">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">🤖 Workshop</span>
+                <span class="text-[11px] font-mono text-slate-300 flex items-center gap-1"><i class="ph-bold ph-calendar"></i> Nov 04</span>
+              </div>
+              <h4 class="font-bold text-white text-sm">Autonomous Embedded IoT Sprint</h4>
+              <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5"><i class="ph-bold ph-chalkboard-teacher text-rec-purpleGlow"></i> CSE Computing Lab 3</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Happening Soon Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-rec-gold flex items-center gap-1.5 mb-1">
+            <i class="ph-bold ph-flame text-sm"></i> HAPPENING SOON
+          </div>
+          <h2 class="font-display text-xl sm:text-3xl font-extrabold text-white">Don't miss what's happening around campus.</h2>
+        </div>
+        <button onclick="navigate('events')" class="text-xs font-bold text-rec-gold hover:text-amber-300 flex items-center gap-1 self-start sm:self-auto transition-all">
+          View All Events <i class="ph-bold ph-arrow-right"></i>
+        </button>
+      </div>
+
+      <div id="homeEventsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"></div>
+    </div>
+
+    <!-- Clubs Spotlight -->
+    <div class="border-t border-white/5 bg-[#0a0e17]/60 py-12 sm:py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+          <div class="text-xs font-bold uppercase tracking-wider text-rec-purpleGlow flex items-center justify-center gap-1.5">
+            <i class="ph-bold ph-users-three text-sm"></i> FIND YOUR COMMUNITY
+          </div>
+          <h2 class="font-display text-xl sm:text-3xl font-extrabold text-white">Explore the clubs that bring REC to life.</h2>
+        </div>
+        <div id="homeClubsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 2: EVENTS DASHBOARD -->
+  <section id="view-events" class="page-view hidden flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 w-full">
+    <div class="mb-6 sm:mb-8 space-y-1 sm:space-y-2">
+      <h1 class="font-display text-2xl sm:text-4xl font-extrabold text-white">DISCOVER WHAT'S HAPPENING AT REC</h1>
+      <p class="text-xs sm:text-sm text-slate-400">Explore upcoming events, competitions, workshops, and opportunities across campus.</p>
+    </div>
+
+    <div class="space-y-3 mb-6 sm:mb-10">
+      <div class="relative flex items-center bg-rec-card border border-white/10 rounded-2xl p-1.5 shadow-xl">
+        <i class="ph-bold ph-magnifying-glass text-slate-400 text-base sm:text-lg ml-3 mr-2"></i>
+        <input type="text" id="eventsFilterSearch" oninput="applyEventFilters()" placeholder="Search events, clubs or categories..." class="w-full bg-transparent text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none">
+      </div>
+
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 text-xs scrollbar-none">
+        <button onclick="setFilterCategory('All')" class="filter-pill shrink-0 px-3.5 py-2 rounded-xl font-bold bg-rec-purple text-white">All</button>
+        <button onclick="setFilterCategory('Today')" class="filter-pill shrink-0 px-3.5 py-2 rounded-xl font-bold bg-white/5 text-slate-400 hover:text-white">Today</button>
+        <button onclick="setFilterCategory('Hackathon')" class="filter-pill shrink-0 px-3.5 py-2 rounded-xl font-bold bg-white/5 text-slate-400 hover:text-white">Hackathon</button>
+        <button onclick="setFilterCategory('Workshop')" class="filter-pill shrink-0 px-3.5 py-2 rounded-xl font-bold bg-white/5 text-slate-400 hover:text-white">Workshop</button>
+        <button onclick="setFilterCategory('Competition')" class="filter-pill shrink-0 px-3.5 py-2 rounded-xl font-bold bg-white/5 text-slate-400 hover:text-white">Competition</button>
+        <button onclick="setFilterCategory('Symposium')" class="filter-pill shrink-0 px-3.5 py-2 rounded-xl font-bold bg-white/5 text-slate-400 hover:text-white">Symposium</button>
+        <button onclick="setFilterCategory('Technical')" class="filter-pill shrink-0 px-3.5 py-2 rounded-xl font-bold bg-white/5 text-slate-400 hover:text-white">Technical</button>
+        <button onclick="setFilterCategory('Cultural')" class="filter-pill shrink-0 px-3.5 py-2 rounded-xl font-bold bg-white/5 text-slate-400 hover:text-white">Cultural</button>
+        <button onclick="setFilterCategory('Sports')" class="filter-pill shrink-0 px-3.5 py-2 rounded-xl font-bold bg-white/5 text-slate-400 hover:text-white">Sports</button>
+        <button onclick="setFilterCategory('Academic')" class="filter-pill shrink-0 px-3.5 py-2 rounded-xl font-bold bg-white/5 text-slate-400 hover:text-white">Academic</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+      <aside class="lg:col-span-4 space-y-4 sm:space-y-6 lg:sticky lg:top-28">
+        <div class="glass-card rounded-3xl p-5 sm:p-6 shadow-xl border-white/10">
+          <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-white/5">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-2">
+              <i class="ph-bold ph-calendar text-rec-gold"></i> EVENT CALENDAR
+            </h3>
+            <span id="miniCalendarMonth" class="text-xs font-semibold text-rec-gold"></span>
+          </div>
+          <div class="mt-3">
+            <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-slate-500 mb-2">
+              <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+            </div>
+            <div id="miniCalendarGrid" class="grid grid-cols-7 gap-1 text-center text-xs"></div>
+          </div>
+          <div class="mt-3 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] text-slate-400">
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-rec-gold animate-pulse"></span> Has Event</span>
+            <button onclick="clearDateFilter()" class="text-rec-purpleGlow hover:underline text-xs">Reset Date Filter</button>
+          </div>
+        </div>
+      </aside>
+
+      <div class="lg:col-span-8 space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-white/5">
+          <h2 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+            🔥 UPCOMING EVENTS <span id="eventCountBadge" class="text-xs bg-white/5 px-2 py-0.5 rounded-full text-slate-300">0</span>
+          </h2>
+          <span id="activeFilterLabel" class="text-xs text-rec-gold font-mono">Filter: All</span>
+        </div>
+        <div id="eventsListContainer" class="space-y-4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 3: DEDICATED EVENT DETAILS (ALIGNED IDs) -->
+  <section id="view-event-detail" class="page-view hidden flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10 w-full space-y-6 sm:space-y-8">
+    <button onclick="navigate('events')" class="inline-flex items-center gap-2 text-xs font-bold text-rec-gold hover:text-amber-300 bg-white/5 border border-white/10 px-4 py-2.5 rounded-xl transition-all">
+      <i class="ph-bold ph-arrow-left"></i> Back to Events
+    </button>
+
+    <div class="glass-card rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden border-purple-500/20">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-rec-purple/15 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+        <span id="dtlClubBadge" class="text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full bg-rec-gold/15 text-rec-gold border border-rec-gold/30"></span>
+        <span id="dtlCategoryBadge" class="text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30"></span>
+        <span id="dtlStatusBadge" class="text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full"></span>
+      </div>
+
+      <h1 id="dtlEventTitle" class="font-display text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight"></h1>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-6 pt-5 border-t border-white/5">
+        <div>
+          <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Scheduled Date</p>
+          <p id="dtlEventDate" class="text-xs sm:text-sm font-bold text-white mt-1 flex items-center gap-1.5"><i class="ph-bold ph-calendar text-rec-gold"></i> -</p>
+        </div>
+        <div>
+          <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Event Timing</p>
+          <p id="dtlEventTime" class="text-xs sm:text-sm font-bold text-white mt-1 flex items-center gap-1.5"><i class="ph-bold ph-clock text-rec-gold"></i> -</p>
+        </div>
+        <div>
+          <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Campus Venue</p>
+          <p id="dtlEventVenue" class="text-xs sm:text-sm font-bold text-white mt-1 flex items-center gap-1.5"><i class="ph-bold ph-map-pin text-rec-gold"></i> -</p>
+        </div>
+        <div>
+          <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider" id="dtlSeatsLabel">Seat Capacity</p>
+          <p id="dtlEventSeats" class="text-xs sm:text-sm font-bold text-white mt-1 flex items-center gap-1.5"><i class="ph-bold ph-users text-rec-gold"></i> -</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+      <div class="lg:col-span-8 space-y-5">
+        <div class="glass-card rounded-3xl p-5 sm:p-8 shadow-xl border-white/10 space-y-3">
+          <div class="flex items-center justify-between border-b border-white/5 pb-3">
+            <h3 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+              <i id="dtlSectionIcon" class="ph-bold ph-target text-rec-gold text-lg"></i>
+              <span id="dtlSectionTitle">Problem Statements & Challenges</span>
+            </h3>
+            <span class="text-[10px] bg-white/5 text-slate-400 px-2 py-0.5 rounded font-mono">REC Official</span>
+          </div>
+          <div id="dtlProblemStatements" class="text-xs sm:text-sm text-slate-300 font-mono whitespace-pre-line leading-relaxed p-3.5 rounded-2xl bg-black/40 border border-white/5"></div>
+        </div>
+
+        <div class="glass-card rounded-3xl p-5 sm:p-8 shadow-xl border-white/10 space-y-3">
+          <div class="flex items-center justify-between border-b border-white/5 pb-3">
+            <h3 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+              <i id="dtlRulesIcon" class="ph-bold ph-shield-check text-rec-purpleGlow text-lg"></i>
+              <span id="dtlRulesTitle">Official Rules & Guidelines</span>
+            </h3>
+            <span class="text-[10px] bg-white/5 text-slate-400 px-2 py-0.5 rounded font-mono">Mandatory Compliance</span>
+          </div>
+          <div id="dtlEventRules" class="text-xs sm:text-sm text-slate-300 font-mono whitespace-pre-line leading-relaxed p-3.5 rounded-2xl bg-black/40 border border-white/5"></div>
+        </div>
+      </div>
+
+      <aside class="lg:col-span-4 space-y-5">
+        <div class="glass-card rounded-3xl p-5 sm:p-7 shadow-2xl border-white/10 space-y-4">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Registration Status</span>
+              <span id="dtlSideStatus" class="text-xs font-bold text-white">Open</span>
+            </div>
+            <div class="flex items-center justify-between mt-1 text-[11px] text-slate-400">
+              <span>Enrollment</span>
+              <span id="dtlSidePct" class="font-mono text-rec-gold font-bold"></span>
+            </div>
+            <div class="w-full bg-black/60 h-2 rounded-full overflow-hidden mt-1.5 border border-white/5">
+              <div id="dtlProgressBar" class="h-2 rounded-full bg-gradient-to-r from-rec-purple to-rec-gold transition-all" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-white/[0.03] border border-white/5 text-xs text-slate-400 space-y-1">
+            <p class="font-bold text-white">Organizer Details</p>
+            <p id="dtlOrganizerClub">Organizing Club: -</p>
+            <p>Faculty Convenors • REC</p>
+          </div>
+
+          <button id="dtlRegisterActionBtn" onclick="openRegisterModalFromDetails()" class="w-full py-3.5 sm:py-4 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 text-slate-950 font-extrabold text-xs sm:text-sm shadow-xl shadow-amber-400/20 active:scale-95 transition-all">
+            Register Seat Now →
+          </button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- VIEW 4: CLUBS DIRECTORY -->
+  <section id="view-clubs" class="page-view hidden flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 w-full">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-3">
+      <div>
+        <h1 class="font-display text-2xl sm:text-4xl font-extrabold text-white">FIND YOUR COMMUNITY</h1>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">Explore the clubs, chapters and societies shaping campus life at REC.</p>
+      </div>
+      <button id="adminAddClubBtn" onclick="openAddClubModal()" class="hidden self-start sm:self-auto items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-950/70 border border-purple-500/40 text-purple-200 text-xs font-bold transition-all">
+        <i class="ph-bold ph-plus"></i> Add New Club
+      </button>
+    </div>
+
+    <div class="relative flex items-center bg-rec-card border border-white/10 rounded-2xl p-1.5 shadow-xl mb-6 sm:mb-10 max-w-md">
+      <i class="ph-bold ph-magnifying-glass text-slate-400 text-base sm:text-lg ml-3 mr-2"></i>
+      <input type="text" id="clubsSearchInput" oninput="filterClubsGrid()" placeholder="Search clubs..." class="w-full bg-transparent text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none">
+    </div>
+
+    <div id="clubsDirectoryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"></div>
+  </section>
+
+  <!-- VIEW 5: CLUB DETAILS -->
+  <section id="view-club-detail" class="page-view hidden flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 w-full space-y-6 sm:space-y-8">
+    <button onclick="navigate('clubs')" class="inline-flex items-center gap-2 text-xs font-bold text-rec-gold hover:text-amber-300 bg-white/5 border border-white/10 px-4 py-2.5 rounded-xl transition-all">
+      <i class="ph-bold ph-arrow-left"></i> Back to All Clubs
+    </button>
+
+    <div class="glass-card rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+      <div class="flex items-center gap-4">
+        <div id="clubDetailIconBox" class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-rec-purple to-amber-400 flex items-center justify-center text-2xl sm:text-3xl text-slate-950 font-black shrink-0">
+          <i class="ph-bold ph-users-three"></i>
+        </div>
+        <div>
+          <h1 id="clubDetailName" class="font-display text-xl sm:text-3xl font-extrabold text-white"></h1>
+          <p id="clubDetailTagline" class="text-xs sm:text-sm text-rec-gold font-medium mt-0.5"></p>
+          <p class="text-[11px] text-slate-400 mt-1 font-mono">Official Rajalakshmi Engineering College Chapter</p>
+        </div>
+      </div>
+
+      <button onclick="toggleFollowClub()" id="followClubBtn" class="w-full md:w-auto px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-white transition-all flex items-center justify-center gap-2">
+        <i class="ph-bold ph-bell"></i> <span>Follow Club</span>
+      </button>
+    </div>
+
+    <div class="space-y-4">
+      <h2 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+        🔥 UPCOMING EVENTS FROM THIS CLUB
+      </h2>
+      <div id="clubSpecificEventsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"></div>
+    </div>
+  </section>
+
+  <!-- VIEW 6: FULL CAMPUS CALENDAR -->
+  <section id="view-calendar" class="page-view hidden flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 w-full space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+      <div>
+        <h1 class="font-display text-2xl sm:text-4xl font-extrabold text-white">CAMPUS CALENDAR</h1>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">Your complete view of what's happening at REC.</p>
+      </div>
+    </div>
+
+    <div class="glass-card rounded-3xl p-4 sm:p-8 shadow-2xl border-white/10 overflow-x-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-white/5 min-w-[520px]">
+        <h3 id="fullCalendarHeader" class="font-display font-extrabold text-base sm:text-xl text-white"></h3>
+        <span class="text-xs text-rec-gold font-mono font-bold">2026 Academic Session</span>
+      </div>
+
+      <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center text-[10px] sm:text-xs font-bold text-slate-400 uppercase py-3 border-b border-white/5 min-w-[520px]">
+        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+      </div>
+
+      <div id="fullCalendarGrid" class="grid grid-cols-7 gap-1 sm:gap-2 pt-3 min-w-[520px]"></div>
+    </div>
+  </section>
+
+  <!-- VIEW 7: PRINTABLE ATTENDANCE SHEET -->
+  <section id="attendancePrintSection" class="hidden max-w-4xl mx-auto p-8 bg-white text-black min-h-screen">
+    <div class="no-print flex justify-between items-center pb-6 border-b border-slate-200 mb-6">
+      <button onclick="closeAttendanceView()" class="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold">
+        ← Back to Hub
+      </button>
+      <button onclick="window.print()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md flex items-center gap-2">
+        <i class="ph-bold ph-printer"></i> Print / Save Roster as PDF
+      </button>
+    </div>
+
+    <div class="text-center pb-4 border-b-2 border-black space-y-1">
+      <h2 class="text-xl font-black uppercase tracking-wide">RAJALAKSHMI ENGINEERING COLLEGE</h2>
+      <p class="text-xs font-semibold uppercase tracking-wider text-slate-700">(AN AUTONOMOUS INSTITUTION • AFFILIATED TO ANNA UNIVERSITY, CHENNAI)</p>
+      <p class="text-xs text-slate-600">Rajalakshmi Nagar, Thandalam, Chennai – 602 105</p>
+      <h3 class="text-sm font-bold uppercase pt-2 tracking-wider underline">OFFICIAL EVENT ATTENDANCE & VERIFICATION ROSTER</h3>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 py-4 text-xs border-b border-slate-300">
+      <div>
+        <p><span class="font-bold">Event Name:</span> <span id="attEventTitle">-</span></p>
+        <p><span class="font-bold">Organizing Club:</span> <span id="attClubName">-</span></p>
+        <p><span class="font-bold">Campus Venue:</span> <span id="attVenue">-</span></p>
+      </div>
+      <div>
+        <p><span class="font-bold">Scheduled Date:</span> <span id="attDate">-</span></p>
+        <p><span class="font-bold">Session Timing:</span> <span id="attTiming">-</span></p>
+        <p><span class="font-bold">Total Enrolled:</span> <span id="attCount">0</span></p>
+      </div>
+    </div>
+
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full text-left text-xs border-collapse border border-black min-w-[500px]">
+        <thead>
+          <tr class="bg-slate-100 border-b border-black">
+            <th class="p-2 border border-black w-10 text-center">S.No</th>
+            <th class="p-2 border border-black w-32">Register No</th>
+            <th class="p-2 border border-black">Student Name</th>
+            <th class="p-2 border border-black">Department</th>
+            <th class="p-2 border border-black">College Email</th>
+            <th class="p-2 border border-black w-24 text-center">Signature</th>
+          </tr>
+        </thead>
+        <tbody id="attendanceTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MODAL: REGISTRATION -->
+  <div id="registerModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-3 sm:p-4 no-print">
+    <div class="glass-card border-white/10 w-full max-w-lg rounded-3xl shadow-2xl p-5 sm:p-8 max-h-[92vh] overflow-y-auto">
+      <div class="flex justify-between items-center pb-3 border-b border-white/5">
+        <div>
+          <span class="text-[10px] font-bold text-rec-gold uppercase tracking-wider">Official REC Form</span>
+          <h3 class="font-display font-extrabold text-lg sm:text-xl text-white mt-0.5" id="regModalEventTitle">Event Title</h3>
+        </div>
+        <button onclick="closeRegisterModal()" class="text-slate-400 hover:text-white text-lg p-1"><i class="ph-bold ph-x"></i></button>
+      </div>
+
+      <form id="regForm" onsubmit="submitRegistration(event)" class="space-y-3.5 pt-3">
+        <input type="hidden" id="selectedEventId">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Student Full Name</label>
+            <input required id="studentName" type="text" placeholder="e.g. Vaibhav Sai" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none focus:border-rec-gold">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">REC Register Number</label>
+            <input required id="studentRegNo" type="text" placeholder="e.g. 211621104177" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none focus:border-rec-gold">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">
+            Official College Email ID <span class="text-rec-gold">(@rajalakshmi.edu.in)</span>
+          </label>
+          <input required id="studentEmail" type="email" placeholder="name.roll.year.dept@rajalakshmi.edu.in" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none focus:border-rec-gold">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Department</label>
+            <input required id="studentDept" type="text" placeholder="e.g. CSE / IT / ECE" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none focus:border-rec-gold">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Year of Study</label>
+            <select id="studentYear" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none focus:border-rec-gold">
+              <option value="1st Year">1st Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year" selected>3rd Year</option>
+              <option value="4th Year">4th Year</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="p-2.5 rounded-xl bg-purple-950/40 border border-purple-900/50 flex items-center gap-2.5">
+          <input required id="diversityConsent" type="checkbox" class="w-4 h-4 text-purple-600 rounded bg-slate-900 border-slate-700 focus:ring-0">
+          <label for="diversityConsent" class="text-[11px] text-slate-300 leading-tight">
+            I confirm compliance with college ethics and event team rules.
+          </label>
+        </div>
+
+        <div class="pt-2 flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3">
+          <button type="button" onclick="closeRegisterModal()" class="w-full sm:w-auto px-5 py-2.5 text-xs font-semibold text-slate-400 hover:text-white text-center">Cancel</button>
+          <button type="submit" class="w-full sm:w-auto px-6 py-3 text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl shadow-lg active:scale-95 text-center">Confirm Registration</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: TICKET PASSKEY -->
+  <div id="ticketModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 no-print">
+    <div class="glass-card border-white/10 w-full max-w-md rounded-3xl shadow-2xl p-6 sm:p-8 text-center space-y-4">
+      <div class="w-14 h-14 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 mx-auto flex items-center justify-center text-3xl">
+        <i class="ph-bold ph-check-circle"></i>
+      </div>
+      <div>
+        <h3 class="font-display font-bold text-lg text-white">Seat Verified & Confirmed!</h3>
+        <p class="text-xs text-slate-400 mt-0.5">Committed to Rajalakshmi Engineering College records.</p>
+      </div>
+      <div class="p-3.5 rounded-2xl bg-black/60 border border-white/5 text-left space-y-1.5 text-xs">
+        <div class="flex justify-between items-center text-[10px] text-slate-500 uppercase font-bold">
+          <span>Official Event Pass</span>
+          <span class="text-emerald-400 font-mono">STATUS: CONFIRMED</span>
+        </div>
+        <p class="font-bold text-white text-sm" id="ticketEventName"></p>
+        <div class="flex justify-between items-center pt-2 border-t border-white/5">
+          <span class="text-slate-400">Security Passkey:</span>
+          <span class="font-mono text-rec-gold font-bold" id="ticketPassKey">REC-7821-X</span>
+        </div>
+      </div>
+      <button onclick="closeTicketModal()" class="w-full text-xs font-semibold text-slate-400 hover:text-white py-2">
+        Done & Close
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL: GLOBAL SEARCH -->
+  <div id="searchModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-start justify-center pt-16 sm:pt-20 p-4 hidden no-print">
+    <div class="glass-card border-white/10 w-full max-w-xl rounded-3xl p-5 sm:p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-white/10">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Search Hub</span>
+        <button onclick="closeSearchModal()" class="text-slate-400 hover:text-white text-base"><i class="ph-bold ph-x"></i></button>
+      </div>
+      <div class="relative flex items-center bg-black/50 border border-white/10 rounded-2xl p-2">
+        <i class="ph-bold ph-magnifying-glass text-slate-400 ml-2 mr-2"></i>
+        <input type="text" id="globalSearchInput" oninput="runGlobalSearchLive()" placeholder="Type to search events, clubs, venues..." class="w-full bg-transparent text-sm text-white focus:outline-none">
+      </div>
+      <div id="searchResultsBox" class="max-h-64 overflow-y-auto space-y-2 pt-1 text-xs"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADMIN CREATE / EDIT EVENT -->
+  <div id="createModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-3 sm:p-4 no-print">
+    <div class="glass-card border-white/10 w-full max-w-lg rounded-3xl p-5 sm:p-8 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center pb-3 border-b border-white/5">
+        <h3 id="modalEventHeading" class="font-display font-bold text-white text-base sm:text-lg">Publish Event</h3>
+        <button onclick="closeCreateModal()" class="text-slate-400 hover:text-white text-lg"><i class="ph-bold ph-x"></i></button>
+      </div>
+
+      <form id="createForm" onsubmit="handleEventFormSubmit(event)" class="space-y-3 pt-3">
+        <input type="hidden" id="editEventId" value="">
+
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Select Organizing Club</label>
+          <select required id="evClubSelect" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none"></select>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Event Title</label>
+          <input required id="evTitle" type="text" placeholder="e.g. Phoenix 24H Hackathon" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Category</label>
+            <select id="evCat" onchange="updateCategoryFields()" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none">
+              <option value="Hackathon">Hackathon</option>
+              <option value="Workshop">Workshop</option>
+              <option value="Sports">Sports</option>
+              <option value="Symposium">Symposium</option>
+              <option value="Competition">Competition</option>
+              <option value="Technical">Technical</option>
+              <option value="Cultural">Cultural</option>
+              <option value="Academic">Academic</option>
+            </select>
+          </div>
+          <div>
+            <label id="lblSeats" class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Total Seat Capacity</label>
+            <input required id="evSeats" type="number" min="1" placeholder="100" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Date</label>
+            <input required id="evDate" type="date" class="w-full text-xs px-2.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Start Time</label>
+            <input required id="evStartTime" type="text" placeholder="09:30 AM" class="w-full text-xs px-3 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">End Time</label>
+            <input required id="evEndTime" type="text" placeholder="04:30 PM" class="w-full text-xs px-3 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Campus Venue</label>
+          <input required id="evVenue" type="text" placeholder="Tech Block Auditorium" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none">
+        </div>
+
+        <div>
+          <label id="lblProblemStatements" class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Problem Statements / Tracks</label>
+          <textarea id="evProblemStatements" rows="3" placeholder="Track details..." class="w-full text-xs p-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none font-mono"></textarea>
+        </div>
+
+        <div>
+          <label id="lblRules" class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Rules & Guidelines</label>
+          <textarea id="evRules" rows="3" placeholder="Rules & compliance..." class="w-full text-xs p-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none font-mono"></textarea>
+        </div>
+
+        <div class="pt-3 flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3">
+          <button type="button" onclick="closeCreateModal()" class="w-full sm:w-auto px-4 py-2.5 text-xs font-semibold text-slate-400 text-center">Cancel</button>
+          <button type="submit" id="saveEventSubmitBtn" class="w-full sm:w-auto px-6 py-2.5 text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-xl text-center">Save & Publish</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADMIN ADD CLUB -->
+  <div id="addClubModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 no-print">
+    <div class="glass-card border-white/10 w-full max-w-md rounded-3xl p-5 sm:p-8">
+      <div class="flex justify-between items-center pb-3 border-b border-white/5">
+        <h3 class="font-display font-bold text-white text-base">Add New Campus Club</h3>
+        <button onclick="closeAddClubModal()" class="text-slate-400 hover:text-white"><i class="ph-bold ph-x"></i></button>
+      </div>
+
+      <form id="addClubForm" onsubmit="submitNewClub(event)" class="space-y-3 pt-3">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Club / Society Name</label>
+          <input required id="newClubName" type="text" placeholder="e.g. Phoenix Club" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Tagline / Mission</label>
+          <input required id="newClubTagline" type="text" placeholder="e.g. Flagship Hackathon Cell" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Icon Style</label>
+          <select id="newClubIcon" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white focus:outline-none">
+            <option value="ph-fire">Fire / Hackathons (ph-fire)</option>
+            <option value="ph-code">Coding / Algorithms (ph-code)</option>
+            <option value="ph-cpu">Hardware / Electronics (ph-cpu)</option>
+            <option value="ph-users-three">General Society (ph-users-three)</option>
+            <option value="ph-trophy">Sports / Athletics (ph-trophy)</option>
+          </select>
+        </div>
+
+        <div class="pt-3 flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3">
+          <button type="button" onclick="closeAddClubModal()" class="w-full sm:w-auto px-4 py-2.5 text-xs font-semibold text-slate-400 text-center">Cancel</button>
+          <button type="submit" class="w-full sm:w-auto px-6 py-2.5 text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-xl text-center">Save Club</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT ENGINE -->
+  <script>
+    const API_URL = "/api";
+    let isAdmin = false;
+    let allClubs = [];
+    let allEvents = [];
+    let currentCategoryFilter = 'All';
+    let currentSelectedDate = null;
+    let selectedDetailEvent = null;
+
+    const categorySchemas = {
+      'Hackathon': {
+        seatsLabel: 'Team / Seat Capacity',
+        seatsPlaceholder: '120',
+        contentLabel: 'Problem Statements & Challenge Tracks',
+        contentPlaceholder: 'Track 1: Smart Transit Fleet Automation (Key: PHX-TRANSIT)\nTrack 2: Edge AI Clinical Diagnostics',
+        rulesLabel: 'Team & Diversity Rules',
+        rulesPlaceholder: '1. Team size: 3 to 4 members.\n2. Diversity: At least 1 female team participant is mandatory.',
+        icon: 'ph-target',
+        detailTitle: 'Problem Statements & Challenge Tracks',
+        detailRules: 'Team Guidelines & Diversity Rules'
+      },
+      'Workshop': {
+        seatsLabel: 'Lab / Batch Intake Capacity',
+        seatsPlaceholder: '60',
+        contentLabel: 'Hands-on Modules & Agenda',
+        contentPlaceholder: 'Module 1: ESP32 Microcontroller Architecture & Sensor Bus\nModule 2: MQTT Telemetry & AWS IoT Core Setup',
+        rulesLabel: 'Prerequisites & Tools',
+        rulesPlaceholder: '1. Bring laptop with Arduino IDE.\n2. Boards will be provided.',
+        icon: 'ph-chalkboard-teacher',
+        detailTitle: 'Workshop Modules & Hands-on Agenda',
+        detailRules: 'Prerequisites & Hardware Requirements'
+      },
+      'Sports': {
+        seatsLabel: 'Total Squad / Player Quota',
+        seatsPlaceholder: '100',
+        contentLabel: 'Game Type & Tournament Format',
+        contentPlaceholder: 'Sport: 5-a-side Football / Badminton Doubles\nFormat: Group stage league matches followed by knockouts.',
+        rulesLabel: 'Tournament Rules & Footwear',
+        rulesPlaceholder: '1. Non-marking shoes / studs mandatory.\n2. Bring REC ID cards.',
+        icon: 'ph-trophy',
+        detailTitle: 'Tournament Format & Match Fixtures',
+        detailRules: 'Tournament Rules & Kit Requirements'
+      },
+      'Symposium': {
+        seatsLabel: 'Presentation Slot / Hall Capacity',
+        seatsPlaceholder: '150',
+        contentLabel: 'Conference Tracks & Research Themes',
+        contentPlaceholder: 'Track A: Next-Gen Wireless, SDN & 6G Networks\nTrack B: Cyber-Physical Security',
+        rulesLabel: 'Paper Formatting & Presentation Guidelines',
+        rulesPlaceholder: '1. IEEE 2-column format.\n2. 10-minute presentation + 5-minute Q&A.',
+        icon: 'ph-microphone-stage',
+        detailTitle: 'Conference Tracks & Research Themes',
+        detailRules: 'Paper Formatting & Submission Guidelines'
+      },
+      'Competition': {
+        seatsLabel: 'Participant Quota',
+        seatsPlaceholder: '80',
+        contentLabel: 'Rounds & Contest Structure',
+        contentPlaceholder: 'Round 1: Rapid-fire MCQs\nRound 2: Live competitive algorithm showdown',
+        rulesLabel: 'Contest Rules & Evaluation Criteria',
+        rulesPlaceholder: '1. Permitted: C, C++, Java, Python.\n2. Tab switching triggers disqualification.',
+        icon: 'ph-lightning',
+        detailTitle: 'Rounds & Competition Structure',
+        detailRules: 'Contest Rules & Evaluation Criteria'
+      },
+      'Cultural': {
+        seatsLabel: 'Stage Slot / Audience Limit',
+        seatsPlaceholder: '250',
+        contentLabel: 'Performance Category & Theme',
+        contentPlaceholder: 'Category: Battle of the Bands / Choreo Night\nTheme: Open / Cyberpunk Fusion',
+        rulesLabel: 'Stage Rules & Equipment',
+        rulesPlaceholder: '1. Performance time: 8 mins.\n2. Audio soundtrack handed over 1 hr prior.',
+        icon: 'ph-sparkle',
+        detailTitle: 'Performance Themes & Stage Guidelines',
+        detailRules: 'Stage Rules & Equipment'
+      },
+      'Academic': {
+        seatsLabel: 'Auditorium Seat Capacity',
+        seatsPlaceholder: '120',
+        contentLabel: 'Lecture Topic & Keynote Synopsis',
+        contentPlaceholder: 'Topic: Architectural Resilience in Distributed Clouds\nSpeaker: Principal Cloud Architect',
+        rulesLabel: 'Eligibility & Certificate Criteria',
+        rulesPlaceholder: '1. Open to all engineering departments.\n2. Full attendance mandatory for verified e-certificate.',
+        icon: 'ph-book-open',
+        detailTitle: 'Lecture Synopsis & Session Overview',
+        detailRules: 'Eligibility & Certificate Criteria'
+      },
+      'Technical': {
+        seatsLabel: 'Participant Capacity',
+        seatsPlaceholder: '75',
+        contentLabel: 'Technical Focus & Deliverables',
+        contentPlaceholder: 'Domain: Full-Stack Web3 & Microservices Integration\nDeliverables: Working REST API demonstration.',
+        rulesLabel: 'Submission & Review Guidelines',
+        rulesPlaceholder: '1. Code hosted in GitHub repository.\n2. Include clear README.',
+        icon: 'ph-cpu',
+        detailTitle: 'Technical Tracks & Deliverables',
+        detailRules: 'Submission & Code Review Guidelines'
+      }
+    };
+
+    function updateCategoryFields() {
+      const cat = document.getElementById("evCat").value;
+      const schema = categorySchemas[cat] || categorySchemas['Hackathon'];
+      const setElTxt = (id, t) => { const el = document.getElementById(id); if (el) el.innerText = t; };
+      const setElPlh = (id, p) => { const el = document.getElementById(id); if (el) el.placeholder = p; };
+
+      setElTxt("lblSeats", schema.seatsLabel);
+      setElPlh("evSeats", schema.seatsPlaceholder);
+      setElTxt("lblProblemStatements", schema.contentLabel);
+      setElPlh("evProblemStatements", schema.contentPlaceholder);
+      setElTxt("lblRules", schema.rulesLabel);
+      setElPlh("evRules", schema.rulesPlaceholder);
+    }
+
+    function isValidCollegeEmail(email) {
+      return /^[a-zA-Z0-9._%+-]+@rajalakshmi\.edu\.in$/i.test(email.trim());
+    }
+
+    async function init() {
+      await loadClubs();
+      await loadEvents();
+      renderMiniCalendar();
+      renderFullCalendar();
+    }
+
+    function navigate(viewName) {
+      document.querySelectorAll('.page-view').forEach(v => v.classList.add('hidden'));
+      document.querySelectorAll('.nav-tab').forEach(t => {
+        t.classList.remove('bg-rec-purple', 'text-white');
+        t.classList.add('text-slate-400');
+      });
+
+      const target = document.getElementById(`view-${viewName}`);
+      if (target) {
+        target.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      const activeNavBtn = document.getElementById(`nav-${viewName}`);
+      if (activeNavBtn) {
+        activeNavBtn.classList.add('bg-rec-purple', 'text-white');
+        activeNavBtn.classList.remove('text-slate-400');
+      }
+    }
+
+    function toggleMobileNav() {
+      document.getElementById("mobileNav").classList.toggle("hidden");
+    }
+
+    async function loadClubs() {
+      try {
+        const res = await fetch(`${API_URL}/clubs`);
+        allClubs = await res.json();
+
+        const homeClubs = document.getElementById("homeClubsGrid");
+        const dirClubs = document.getElementById("clubsDirectoryGrid");
+        const evSelect = document.getElementById("evClubSelect");
+        if (homeClubs) homeClubs.innerHTML = "";
+        if (dirClubs) dirClubs.innerHTML = "";
+        if (evSelect) evSelect.innerHTML = "";
+
+        allClubs.forEach(c => {
+          const clubHtml = `
+            <div class="glass-card glass-card-hover p-5 sm:p-6 rounded-3xl border-white/5 flex flex-col justify-between cursor-pointer group" onclick="openClubDetailPage(${c.id})">
+              <div>
+                <div class="flex items-center justify-between mb-3 sm:mb-4">
+                  <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-purple-950/60 border border-purple-500/20 text-rec-purpleGlow flex items-center justify-center text-xl sm:text-2xl group-hover:scale-110 transition-transform">
+                    <i class="ph-bold ${c.icon || 'ph-users-three'}"></i>
+                  </div>
+                  ${isAdmin ? `
+                    <button onclick="event.stopPropagation(); deleteClub(${c.id})" class="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs transition-colors" title="Delete Club">
+                      <i class="ph-bold ph-trash"></i>
+                    </button>
+                  ` : ''}
+                </div>
+                <h3 class="font-display font-bold text-sm sm:text-base text-white group-hover:text-amber-300 transition-colors">${c.name}</h3>
+                <p class="text-[11px] sm:text-xs text-slate-400 mt-1 line-clamp-2">${c.tagline}</p>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px]">
+                <span class="text-slate-500 font-mono">REC Chapter</span>
+                <span class="text-rec-gold font-bold flex items-center gap-1">Explore <i class="ph-bold ph-arrow-right"></i></span>
+              </div>
+            </div>
+          `;
+          if (homeClubs) homeClubs.innerHTML += clubHtml;
+          if (dirClubs) dirClubs.innerHTML += clubHtml;
+          if (evSelect) evSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+        });
+      } catch (err) {
+        console.error("Clubs load failure:", err);
+      }
+    }
+
+    async function loadEvents() {
+      try {
+        const res = await fetch(`${API_URL}/events`);
+        allEvents = await res.json();
+        
+        renderHomeEvents();
+        applyEventFilters();
+        renderMiniCalendar();
+        renderFullCalendar();
+      } catch (err) {
+        console.error("Events load failure:", err);
+      }
+    }
+
+    function getStatusBadge(filled, total) {
+      const pct = (filled / total) * 100;
+      if (filled >= total) {
+        return { text: "⚪ Closed", class: "bg-slate-800 text-slate-400 border border-slate-700", isFull: true };
+      } else if (pct >= 85) {
+        return { text: "🔴 Almost Full", class: "bg-rose-500/10 text-rose-400 border border-rose-500/20", isFull: false };
+      } else if (pct >= 50) {
+        return { text: "🟡 Filling Fast", class: "bg-amber-400/10 text-amber-300 border border-amber-400/20", isFull: false };
+      } else {
+        return { text: "🟢 Open", class: "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20", isFull: false };
+      }
+    }
+
+    function renderHomeEvents() {
+      const container = document.getElementById("homeEventsGrid");
+      if (!container) return;
+      container.innerHTML = "";
+
+      allEvents.slice(0, 3).forEach(e => {
+        const status = getStatusBadge(e.filled, e.total);
+        container.innerHTML += `
+          <div class="glass-card glass-card-hover p-5 sm:p-6 rounded-3xl border-white/5 flex flex-col justify-between cursor-pointer" onclick="openEventDetailPage(${e.id})">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2.5">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-950/80 text-purple-200 border border-purple-500/20 uppercase tracking-wider">${e.clubName}</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${status.class}">${status.text}</span>
+              </div>
+              <h3 class="font-display font-bold text-base sm:text-lg text-white">${e.title}</h3>
+              
+              <div class="mt-3 space-y-1 text-xs text-slate-400 font-mono">
+                <div class="flex items-center gap-1.5"><i class="ph-bold ph-calendar text-rec-gold"></i> ${e.date}</div>
+                <div class="flex items-center gap-1.5"><i class="ph-bold ph-clock text-rec-gold"></i> ${e.startTime}</div>
+                <div class="flex items-center gap-1.5"><i class="ph-bold ph-map-pin text-rec-gold"></i> ${e.venue}</div>
+              </div>
+            </div>
+
+            <div class="mt-5 pt-3 border-t border-white/5 flex items-center justify-between gap-2">
+              <span class="text-xs font-bold text-amber-400" onclick="event.stopPropagation(); openEventDetailPage(${e.id})">View Event →</span>
+              <button onclick="event.stopPropagation(); openRegisterModal(${e.id}, '${e.title.replace(/'/g, "\\'")}')" ${status.isFull ? 'disabled' : ''} class="px-4 py-2 rounded-xl text-xs font-bold ${status.isFull ? 'bg-slate-800 text-slate-500' : 'bg-rec-purple hover:bg-rec-purple/90 text-white shadow-md'}">
+                Register
+              </button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function applyEventFilters() {
+      const query = (document.getElementById("eventsFilterSearch")?.value || "").toLowerCase();
+      let filtered = allEvents;
+
+      if (currentCategoryFilter !== 'All') {
+        if (currentCategoryFilter === 'Today') {
+          const todayStr = new Date().toISOString().split('T')[0];
+          filtered = filtered.filter(e => e.date === todayStr);
+        } else {
+          filtered = filtered.filter(e => (e.category || "").toLowerCase() === currentCategoryFilter.toLowerCase());
+        }
+      }
+
+      if (currentSelectedDate) filtered = filtered.filter(e => e.date === currentSelectedDate);
+
+      if (query) {
+        filtered = filtered.filter(e => 
+          e.title.toLowerCase().includes(query) ||
+          e.clubName.toLowerCase().includes(query) ||
+          (e.category && e.category.toLowerCase().includes(query)) ||
+          e.venue.toLowerCase().includes(query)
+        );
+      }
+
+      const list = document.getElementById("eventsListContainer");
+      const badge = document.getElementById("eventCountBadge");
+      if (badge) badge.innerText = filtered.length;
+      if (!list) return;
+
+      list.innerHTML = "";
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="p-8 text-center text-slate-500 glass-card rounded-3xl border-white/5">No campus events match your selected filters.</div>`;
+        return;
+      }
+
+      filtered.forEach(e => {
+        const pct = Math.min(100, Math.round((e.filled / e.total) * 100));
+        const status = getStatusBadge(e.filled, e.total);
+
+        list.innerHTML += `
+          <div class="glass-card glass-card-hover p-5 sm:p-7 rounded-3xl border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 cursor-pointer" onclick="openEventDetailPage(${e.id})">
+            
+            <div class="flex-1 space-y-2">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-950/80 text-purple-200 border border-purple-500/20 uppercase">${e.clubName}</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 text-slate-300 border border-white/10 uppercase">${e.category}</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${status.class}">${status.text}</span>
+              </div>
+
+              <h3 class="font-display font-extrabold text-base sm:text-xl text-white hover:text-amber-300 transition-colors">${e.title}</h3>
+
+              <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400 font-mono">
+                <span><i class="ph-bold ph-calendar text-rec-gold"></i> ${e.date}</span>
+                <span><i class="ph-bold ph-clock text-rec-gold"></i> ${e.startTime}</span>
+                <span><i class="ph-bold ph-map-pin text-rec-gold"></i> ${e.venue}</span>
+              </div>
+
+              <div class="w-full max-w-sm pt-1">
+                <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                  <span>${e.filled} / ${e.total} filled</span>
+                  <span class="font-bold text-rec-gold">${pct}%</span>
+                </div>
+                <div class="w-full bg-black/60 h-1.5 rounded-full overflow-hidden border border-white/5">
+                  <div class="bg-gradient-to-r from-rec-purple to-rec-gold h-1.5 rounded-full transition-all" style="width: ${pct}%"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-3 md:pt-0 border-t border-white/5 md:border-t-0 shrink-0 w-full md:w-auto" onclick="event.stopPropagation()">
+              ${isAdmin ? `
+                <div class="grid grid-cols-3 gap-2 w-full sm:w-auto">
+                  <button onclick="openEditEventModal(${e.id})" class="px-2.5 py-2 text-xs font-bold text-indigo-300 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 rounded-xl flex items-center justify-center gap-1 transition-colors">
+                    <i class="ph-bold ph-pencil-simple"></i> <span>Edit</span>
+                  </button>
+                  <button onclick="generateAttendanceSheet(${e.id})" class="px-2.5 py-2 text-xs font-bold text-amber-300 bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 rounded-xl flex items-center justify-center gap-1 transition-colors">
+                    <i class="ph-bold ph-clipboard-text"></i> <span>Roster</span>
+                  </button>
+                  <button onclick="deleteEvent(${e.id})" class="p-2 text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 rounded-xl text-sm flex items-center justify-center">
+                    <i class="ph-bold ph-trash"></i>
+                  </button>
+                </div>
+              ` : ''}
+
+              <button onclick="openRegisterModal(${e.id}, '${e.title.replace(/'/g, "\\'")}')" ${status.isFull ? 'disabled' : ''} class="w-full sm:w-auto px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl font-bold text-xs text-center transition-all ${status.isFull ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 text-slate-950 shadow-lg shadow-amber-400/20 active:scale-95'}">
+                ${status.isFull ? 'Sold Out' : 'Register Now →'}
+              </button>
+            </div>
+
+          </div>
+        `;
+      });
+    }
+
+    function setFilterCategory(cat) {
+      currentCategoryFilter = cat;
+      document.querySelectorAll(".filter-pill").forEach(p => {
+        if (p.innerText.toLowerCase() === cat.toLowerCase()) {
+          p.classList.add("bg-rec-purple", "text-white");
+          p.classList.remove("bg-white/5", "text-slate-400");
+        } else {
+          p.classList.remove("bg-rec-purple", "text-white");
+          p.classList.add("bg-white/5", "text-slate-400");
+        }
+      });
+      document.getElementById("activeFilterLabel").innerText = `Filter: ${cat}`;
+      applyEventFilters();
+    }
+
+    function renderMiniCalendar() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth();
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const lbl = document.getElementById("miniCalendarMonth");
+      if (lbl) lbl.innerText = `${monthNames[month]} ${year}`;
+
+      const grid = document.getElementById("miniCalendarGrid");
+      if (!grid) return;
+      grid.innerHTML = "";
+
+      const firstDayIndex = new Date(year, month, 1).getDay();
+      const lastDay = new Date(year, month + 1, 0).getDate();
+      const eventDates = new Set(allEvents.map(e => e.date));
+
+      for (let i = 0; i < firstDayIndex; i++) grid.innerHTML += `<div></div>`;
+
+      for (let day = 1; day <= lastDay; day++) {
+        const m = String(month + 1).padStart(2, '0');
+        const d = String(day).padStart(2, '0');
+        const dateStr = `${year}-${m}-${d}`;
+        const hasEvent = eventDates.has(dateStr);
+        const isSelected = currentSelectedDate === dateStr;
+
+        grid.innerHTML += `
+          <button onclick="selectCalendarDate('${dateStr}')" class="h-7 sm:h-8 rounded-lg flex flex-col items-center justify-center font-medium transition-all relative ${isSelected ? 'bg-amber-400 text-slate-950 font-bold' : hasEvent ? 'bg-purple-950/70 border border-purple-500/30 text-white font-bold' : 'text-slate-400 hover:bg-white/5'}">
+            <span>${day}</span>
+            ${hasEvent ? `<span class="w-1.5 h-1.5 rounded-full bg-rec-gold absolute bottom-0.5"></span>` : ''}
+          </button>
+        `;
+      }
+    }
+
+    function selectCalendarDate(dateStr) {
+      currentSelectedDate = (currentSelectedDate === dateStr) ? null : dateStr;
+      renderMiniCalendar();
+      applyEventFilters();
+    }
+
+    function clearDateFilter() {
+      currentSelectedDate = null;
+      renderMiniCalendar();
+      applyEventFilters();
+    }
+
+    // SAFE EVENT DETAIL OPENER (NEVER CRASHES)
+    async function openEventDetailPage(id) {
+      try {
+        let data = allEvents.find(e => e.id == id);
+
+        try {
+          const res = await fetch(`${API_URL}/event-detail?id=${id}`);
+          if (res.ok) {
+            const fresh = await res.json();
+            data = { ...data, ...fresh };
+          }
+        } catch (netErr) {
+          console.warn("Using cached event data:", netErr);
+        }
+
+        if (!data) return;
+        selectedDetailEvent = data;
+
+        const status = getStatusBadge(data.filled, data.total);
+        const pct = Math.min(100, Math.round((data.filled / data.total) * 100));
+        const schema = categorySchemas[data.category] || categorySchemas['Hackathon'];
+
+        const setTxt = (elId, val) => { const el = document.getElementById(elId); if (el) el.innerText = val ?? ''; };
+        const setHtm = (elId, val) => { const el = document.getElementById(elId); if (el) el.innerHTML = val ?? ''; };
+
+        setTxt("dtlClubBadge", data.clubName);
+        setTxt("dtlCategoryBadge", data.category);
+
+        const stBadge = document.getElementById("dtlStatusBadge");
+        if (stBadge) {
+          stBadge.innerText = status.text;
+          stBadge.className = `text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full ${status.class}`;
+        }
+
+        setTxt("dtlEventTitle", data.title);
+        setHtm("dtlEventDate", `<i class="ph-bold ph-calendar text-rec-gold"></i> ${data.date}`);
+        setHtm("dtlEventTime", `<i class="ph-bold ph-clock text-rec-gold"></i> ${data.startTime} – ${data.endTime}`);
+        setHtm("dtlEventVenue", `<i class="ph-bold ph-map-pin text-rec-gold"></i> ${data.venue}`);
+        setHtm("dtlEventSeats", `<i class="ph-bold ph-users text-rec-gold"></i> ${data.filled} / ${data.total}`);
+        setTxt("dtlSeatsLabel", schema.seatsLabel);
+
+        setTxt("dtlSectionTitle", schema.detailTitle);
+        const secIcon = document.getElementById("dtlSectionIcon");
+        if (secIcon) secIcon.className = `ph-bold ${schema.icon} text-rec-gold text-lg`;
+        setTxt("dtlRulesTitle", schema.detailRules);
+
+        setTxt("dtlProblemStatements", data.ps || "No specific details uploaded for this track.");
+        setTxt("dtlEventRules", data.rules || "Standard college campus guidelines apply.");
+
+        setTxt("dtlSideStatus", status.isFull ? "Closed" : "Open");
+        setTxt("dtlSidePct", `${pct}% Filled`);
+        const pBar = document.getElementById("dtlProgressBar");
+        if (pBar) pBar.style.width = `${pct}%`;
+        setTxt("dtlOrganizerClub", `Organizing Club: ${data.clubName}`);
+
+        const regBtn = document.getElementById("dtlRegisterActionBtn");
+        if (regBtn) {
+          if (status.isFull) {
+            regBtn.disabled = true;
+            regBtn.className = "w-full py-3.5 rounded-2xl bg-slate-800 text-slate-500 font-bold text-xs cursor-not-allowed";
+            regBtn.innerText = "Seats Sold Out";
+          } else {
+            regBtn.disabled = false;
+            regBtn.className = "w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 text-slate-950 font-extrabold text-xs sm:text-sm shadow-xl shadow-amber-400/20 active:scale-95 transition-all";
+            regBtn.innerText = "Register Seat Now →";
+          }
+        }
+
+        navigate('event-detail');
+      } catch (err) {
+        console.error("Detail navigation error:", err);
+      }
+    }
+
+    function openRegisterModalFromDetails() {
+      if (selectedDetailEvent) {
+        openRegisterModal(selectedDetailEvent.id, selectedDetailEvent.title);
+      }
+    }
+
+    function openClubDetailPage(clubId) {
+      const club = allClubs.find(c => c.id === clubId);
+      if (!club) return;
+
+      document.getElementById("clubDetailName").innerText = club.name;
+      document.getElementById("clubDetailTagline").innerText = club.tagline;
+
+      const container = document.getElementById("clubSpecificEventsGrid");
+      container.innerHTML = "";
+
+      const clubEvents = allEvents.filter(e => e.clubId === clubId);
+      if (clubEvents.length === 0) {
+        container.innerHTML = `<div class="p-8 text-center text-slate-500 glass-card rounded-3xl border-white/5 col-span-full">No active events currently scheduled by this club.</div>`;
+      } else {
+        clubEvents.forEach(e => {
+          const status = getStatusBadge(e.filled, e.total);
+          container.innerHTML += `
+            <div class="glass-card glass-card-hover p-5 rounded-3xl border-white/5 flex flex-col justify-between cursor-pointer" onclick="openEventDetailPage(${e.id})">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-white/5 text-slate-300 uppercase">${e.category}</span>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded ${status.class}">${status.text}</span>
+                </div>
+                <h4 class="font-bold text-white text-sm sm:text-base">${e.title}</h4>
+                <p class="text-xs text-slate-400 mt-2 font-mono"><i class="ph-bold ph-calendar text-rec-gold"></i> ${e.date} • ${e.startTime}</p>
+                <p class="text-xs text-slate-400 font-mono"><i class="ph-bold ph-map-pin text-rec-gold"></i> ${e.venue}</p>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs">
+                <span class="text-rec-gold font-bold" onclick="event.stopPropagation(); openEventDetailPage(${e.id})">Details →</span>
+                <span class="text-slate-500">${e.filled} / ${e.total} seats</span>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      navigate('club-detail');
+    }
+
+    function toggleFollowClub() {
+      const btn = document.getElementById("followClubBtn");
+      if (btn.classList.contains("bg-amber-400")) {
+        btn.classList.remove("bg-amber-400", "text-slate-950");
+        btn.classList.add("bg-white/5", "text-white");
+        btn.innerHTML = `<i class="ph-bold ph-bell"></i> <span>Follow Club</span>`;
+      } else {
+        btn.classList.add("bg-amber-400", "text-slate-950");
+        btn.classList.remove("bg-white/5", "text-white");
+        btn.innerHTML = `<i class="ph-bold ph-check"></i> <span>Following</span>`;
+        Swal.fire({ icon: 'success', title: 'Notifications Enabled', timer: 1200, showConfirmButton: false, background: '#0d111a', color: '#fff' });
+      }
+    }
+
+    function renderFullCalendar() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth();
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      
+      const hdr = document.getElementById("fullCalendarHeader");
+      if (hdr) hdr.innerText = `${monthNames[month]} ${year}`;
+
+      const grid = document.getElementById("fullCalendarGrid");
+      if (!grid) return;
+      grid.innerHTML = "";
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const lastDay = new Date(year, month + 1, 0).getDate();
+
+      for (let i = 0; i < firstDay; i++) {
+        grid.innerHTML += `<div class="h-20 sm:h-28 rounded-2xl bg-white/[0.01] border border-white/5"></div>`;
+      }
+
+      for (let day = 1; day <= lastDay; day++) {
+        const m = String(month + 1).padStart(2, '0');
+        const d = String(day).padStart(2, '0');
+        const dateStr = `${year}-${m}-${d}`;
+        const dayEvents = allEvents.filter(e => e.date === dateStr);
+
+        grid.innerHTML += `
+          <div class="h-20 sm:h-28 p-1.5 sm:p-2.5 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col justify-between overflow-hidden">
+            <span class="text-xs font-bold ${dayEvents.length > 0 ? 'text-rec-gold' : 'text-slate-500'}">${day}</span>
+            <div class="space-y-1 overflow-y-auto max-h-12 sm:max-h-16">
+              ${dayEvents.map(e => `
+                <div onclick="openEventDetailPage(${e.id})" class="text-[8px] sm:text-[9px] font-bold px-1 py-0.5 rounded bg-purple-950/80 text-purple-200 truncate cursor-pointer hover:bg-rec-purple hover:text-white" title="${e.title}">
+                  ${e.title}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    async function generateAttendanceSheet(eventId) {
+      try {
+        const res = await fetch(`${API_URL}/attendees?eventId=${eventId}`);
+        const data = await res.json();
+
+        document.getElementById("attEventTitle").innerText = data.event.title;
+        document.getElementById("attClubName").innerText = data.event.club;
+        document.getElementById("attVenue").innerText = data.event.venue;
+        document.getElementById("attDate").innerText = data.event.date;
+        document.getElementById("attTiming").innerText = `${data.event.startTime} – ${data.event.endTime}`;
+        document.getElementById("attCount").innerText = `${data.students.length} Candidates`;
+
+        const tbody = document.getElementById("attendanceTableBody");
+        tbody.innerHTML = "";
+
+        if (data.students.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center border border-black font-semibold">No students registered yet for this event.</td></tr>`;
+        } else {
+          data.students.forEach((s, idx) => {
+            tbody.innerHTML += `
+              <tr class="border-b border-black">
+                <td class="p-2 border border-black text-center font-mono">${idx + 1}</td>
+                <td class="p-2 border border-black font-mono font-bold">${s.regNo}</td>
+                <td class="p-2 border border-black">${s.name}</td>
+                <td class="p-2 border border-black">${s.dept}</td>
+                <td class="p-2 border border-black font-mono text-[11px]">${s.email}</td>
+                <td class="p-2 border border-black text-center"></td>
+              </tr>
+            `;
+          });
+        }
+
+        document.querySelectorAll('.page-view').forEach(v => v.classList.add('hidden'));
+        document.getElementById("attendancePrintSection").classList.remove("hidden");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        console.error("Attendance fetch error:", err);
+      }
+    }
+
+    function closeAttendanceView() {
+      document.getElementById("attendancePrintSection").classList.add("hidden");
+      navigate('events');
+    }
+
+    function openRegisterModal(id, title) {
+      document.getElementById("selectedEventId").value = id;
+      document.getElementById("regModalEventTitle").innerText = title;
+      document.getElementById("registerModal").classList.remove("hidden");
+    }
+
+    function closeRegisterModal() {
+      document.getElementById("registerModal").classList.add("hidden");
+      document.getElementById("regForm").reset();
+    }
+
+    async function submitRegistration(e) {
+      e.preventDefault();
+      const email = document.getElementById("studentEmail").value.trim();
+
+      if (!isValidCollegeEmail(email)) {
+        Swal.fire({
+          icon: 'error',
+          title: 'College Email ID Required',
+          html: `<p class="text-xs">Only official college mail IDs ending in <b class="text-amber-400">@rajalakshmi.edu.in</b> are permitted.</p>`,
+          background: '#0d111a',
+          color: '#f8fafc',
+          confirmButtonColor: '#fbbf24'
+        });
+        return;
+      }
+
+      const eventTitle = document.getElementById("regModalEventTitle").innerText;
+      const payload = new URLSearchParams({
+        eventId: document.getElementById("selectedEventId").value,
+        name: document.getElementById("studentName").value,
+        regNo: document.getElementById("studentRegNo").value,
+        email: email,
+        dept: document.getElementById("studentDept").value
+      });
+
+      const res = await fetch(`${API_URL}/register`, { method: "POST", body: payload });
+      const msg = await res.text();
+
+      if (res.status === 200) {
+        closeRegisterModal();
+        const passKey = "REC-" + Math.floor(1000 + Math.random() * 9000) + "-CSE";
+        document.getElementById("ticketEventName").innerText = eventTitle;
+        document.getElementById("ticketPassKey").innerText = passKey;
+        document.getElementById("ticketModal").classList.remove("hidden");
+        await loadEvents();
+      } else if (res.status === 409) {
+        Swal.fire({ icon: 'warning', title: 'Duplicate Entry', text: 'You are already registered for this event.', background: '#0d111a', color: '#f8fafc', confirmButtonColor: '#7c3aed' });
+      } else {
+        Swal.fire({ icon: 'error', title: 'Registration Rejected', text: msg, background: '#0d111a', color: '#f8fafc' });
+      }
+    }
+
+    function closeTicketModal() {
+      document.getElementById("ticketModal").classList.add("hidden");
+    }
+
+    async function toggleAdminPrompt() {
+      if (isAdmin) {
+        isAdmin = false;
+        document.getElementById("adminBtnLabel").innerText = "Admin Login";
+        const mobileLabel = document.getElementById("adminBtnLabelMobile");
+        if (mobileLabel) mobileLabel.innerText = "Admin";
+        document.getElementById("headerHostBtn").classList.add("hidden");
+        document.getElementById("adminAddClubBtn").classList.add("hidden");
+        applyEventFilters();
+        loadClubs();
+        return;
+      }
+
+      const { value: pass } = await Swal.fire({
+        title: 'Department Admin Passcode',
+        input: 'password',
+        inputPlaceholder: 'Enter passcode (default: admin123)',
+        showCancelButton: true,
+        background: '#0d111a',
+        color: '#f8fafc',
+        confirmButtonColor: '#7c3aed'
+      });
+
+      if (pass === "admin123") {
+        isAdmin = true;
+        document.getElementById("adminBtnLabel").innerText = "Exit Admin";
+        const mobileLabel = document.getElementById("adminBtnLabelMobile");
+        if (mobileLabel) mobileLabel.innerText = "Exit";
+        document.getElementById("headerHostBtn").classList.remove("hidden");
+        document.getElementById("adminAddClubBtn").classList.remove("hidden");
+        Swal.fire({ icon: 'success', title: 'Admin mode active', timer: 1000, showConfirmButton: false, background: '#0d111a', color: '#fff' });
+        applyEventFilters();
+        loadClubs();
+      } else if (pass) {
+        Swal.fire({ icon: 'error', title: 'Invalid Passcode', background: '#0d111a', color: '#fff' });
+      }
+    }
+
+    function openCreateModal() {
+      document.getElementById("editEventId").value = "";
+      document.getElementById("createForm").reset();
+      document.getElementById("modalEventHeading").innerText = "Publish Event";
+      document.getElementById("saveEventSubmitBtn").innerText = "Publish Event";
+      updateCategoryFields();
+      document.getElementById("createModal").classList.remove("hidden");
+    }
+
+    async function openEditEventModal(id) {
+      try {
+        const res = await fetch(`${API_URL}/event-detail?id=${id}`);
+        const data = await res.json();
+
+        document.getElementById("editEventId").value = data.id;
+        document.getElementById("evClubSelect").value = data.clubId;
+        document.getElementById("evTitle").value = data.title;
+        document.getElementById("evCat").value = data.category;
+        
+        updateCategoryFields();
+
+        document.getElementById("evSeats").value = data.total;
+        document.getElementById("evDate").value = data.date;
+        document.getElementById("evStartTime").value = data.startTime;
+        document.getElementById("evEndTime").value = data.endTime;
+        document.getElementById("evVenue").value = data.venue;
+        document.getElementById("evProblemStatements").value = data.ps || "";
+        document.getElementById("evRules").value = data.rules || "";
+
+        document.getElementById("modalEventHeading").innerText = "Edit Event Details";
+        document.getElementById("saveEventSubmitBtn").innerText = "Update Changes";
+        document.getElementById("createModal").classList.remove("hidden");
+      } catch (err) {
+        console.error("Failed to load event for editing:", err);
+      }
+    }
+
+    function closeCreateModal() {
+      document.getElementById("createModal").classList.add("hidden");
+    }
+
+    async function handleEventFormSubmit(e) {
+      e.preventDefault();
+      const editId = document.getElementById("editEventId").value;
+      const isEdit = editId !== "";
+
+      const endpoint = isEdit ? `${API_URL}/update-event` : `${API_URL}/add-event`;
+      const payload = new URLSearchParams({
+        clubId: document.getElementById("evClubSelect").value,
+        title: document.getElementById("evTitle").value,
+        category: document.getElementById("evCat").value,
+        seats: document.getElementById("evSeats").value,
+        date: document.getElementById("evDate").value,
+        startTime: document.getElementById("evStartTime").value,
+        endTime: document.getElementById("evEndTime").value,
+        venue: document.getElementById("evVenue").value,
+        problemStatements: document.getElementById("evProblemStatements").value,
+        rules: document.getElementById("evRules").value
+      });
+
+      if (isEdit) payload.append("eventId", editId);
+
+      const res = await fetch(endpoint, { method: "POST", body: payload });
+      if (res.ok) {
+        closeCreateModal();
+        document.getElementById("createForm").reset();
+        await loadEvents();
+        Swal.fire({ icon: 'success', title: isEdit ? 'Event Updated!' : 'Event Published!', timer: 1200, showConfirmButton: false, background: '#0d111a', color: '#fff' });
+      }
+    }
+
+    async function deleteEvent(id) {
+      const result = await Swal.fire({
+        title: 'Delete this competition?',
+        text: 'Registrations will be removed.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#7c3aed',
+        confirmButtonText: 'Yes, delete',
+        background: '#0d111a',
+        color: '#fff'
+      });
+
+      if (result.isConfirmed) {
+        await fetch(`${API_URL}/delete-event`, { method: "POST", body: new URLSearchParams({ id }) });
+        await loadEvents();
+      }
+    }
+
+    function openAddClubModal() { document.getElementById("addClubModal").classList.remove("hidden"); }
+    function closeAddClubModal() { document.getElementById("addClubModal").classList.add("hidden"); }
+
+    async function submitNewClub(e) {
+      e.preventDefault();
+      const payload = new URLSearchParams({
+        name: document.getElementById("newClubName").value,
+        tagline: document.getElementById("newClubTagline").value,
+        icon: document.getElementById("newClubIcon").value
+      });
+
+      const res = await fetch(`${API_URL}/add-club`, { method: "POST", body: payload });
+      if (res.ok) {
+        closeAddClubModal();
+        document.getElementById("addClubForm").reset();
+        await loadClubs();
+        Swal.fire({ icon: 'success', title: 'Club Created!', timer: 1200, showConfirmButton: false, background: '#0d111a', color: '#fff' });
+      }
+    }
+
+    async function deleteClub(id) {
+      const result = await Swal.fire({
+        title: 'Delete this campus club?',
+        text: 'All events under this club will also be removed.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#e11d48',
+        confirmButtonText: 'Yes, delete club',
+        background: '#0d111a',
+        color: '#fff'
+      });
+
+      if (result.isConfirmed) {
+        const res = await fetch(`${API_URL}/delete-club`, { method: "POST", body: new URLSearchParams({ id }) });
+        if (res.ok) {
+          await loadClubs();
+          await loadEvents();
+          Swal.fire({ icon: 'success', title: 'Club Deleted', timer: 1200, showConfirmButton: false, background: '#0d111a', color: '#fff' });
+        }
+      }
+    }
+
+    function openSearchModal() {
+      document.getElementById("searchModal").classList.remove("hidden");
+      document.getElementById("globalSearchInput").focus();
+    }
+    function closeSearchModal() { document.getElementById("searchModal").classList.add("hidden"); }
+
+    function runGlobalSearchLive() {
+      const q = document.getElementById("globalSearchInput").value.trim().toLowerCase();
+      const box = document.getElementById("searchResultsBox");
+      if (!q) {
+        box.innerHTML = `<p class="text-slate-500 text-center py-6">Type a query to search...</p>`;
+        return;
+      }
+
+      const evMatches = allEvents.filter(e => e.title.toLowerCase().includes(q) || e.clubName.toLowerCase().includes(q));
+      const clubMatches = allClubs.filter(c => c.name.toLowerCase().includes(q));
+
+      let html = "";
+      if (evMatches.length === 0 && clubMatches.length === 0) {
+        box.innerHTML = `<p class="text-slate-500 text-center py-6">No matching events or clubs found.</p>`;
+        return;
+      }
+
+      if (evMatches.length > 0) {
+        html += `<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Events</p>`;
+        evMatches.forEach(e => {
+          html += `
+            <div onclick="closeSearchModal(); openEventDetailPage(${e.id})" class="p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] cursor-pointer flex justify-between items-center transition-all">
+              <div>
+                <p class="font-bold text-white text-xs">${e.title}</p>
+                <p class="text-[10px] text-slate-400">${e.clubName} • ${e.date}</p>
+              </div>
+              <span class="text-rec-gold text-xs">View →</span>
+            </div>
+          `;
+        });
+      }
+
+      if (clubMatches.length > 0) {
+        html += `<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-3 mb-1">Clubs</p>`;
+        clubMatches.forEach(c => {
+          html += `
+            <div onclick="closeSearchModal(); openClubDetailPage(${c.id})" class="p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] cursor-pointer flex justify-between items-center transition-all">
+              <div>
+                <p class="font-bold text-white text-xs">${c.name}</p>
+                <p class="text-[10px] text-slate-400">${c.tagline}</p>
+              </div>
+              <span class="text-rec-purpleGlow text-xs">Explore →</span>
+            </div>
+          `;
+        });
+      }
+
+      box.innerHTML = html;
+    }
+
+    function handleHeroSearch(e) { if (e.key === 'Enter') runHeroSearch(); }
+    function runHeroSearch() {
+      const q = document.getElementById("heroSearchInput").value.trim();
+      if (!q) return;
+      navigate('events');
+      const input = document.getElementById("eventsFilterSearch");
+      if (input) {
+        input.value = q;
+        applyEventFilters();
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        openSearchModal();
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>

@@ -109,9 +109,7 @@
 </head>
 <body class="selection:bg-rec-purple selection:text-white min-h-screen flex flex-col antialiased">
 
-
-
-  <!-- HEADER -->
+  <!-- GLOBAL HEADER (WITH THANDALAM BELOW NAAC) -->
   <header class="sticky top-0 z-40 bg-[#07090e]/90 backdrop-blur-xl border-b border-white/5 no-print">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 h-20 sm:h-24 flex items-center justify-between gap-2 sm:gap-4">
       
@@ -120,7 +118,6 @@
         <img src="logo.png" alt="REC Crest" class="h-10 sm:h-14 w-auto object-contain drop-shadow-[0_2px_10px_rgba(251,191,36,0.35)] shrink-0 transition-transform hover:scale-105">
         <div class="flex flex-col justify-center min-w-0">
           
-          <!-- Line 1: College Name & Autonomous Badge -->
           <div class="flex items-center gap-1 sm:gap-2">
             <span class="font-display font-extrabold text-xs sm:text-base tracking-tight text-white uppercase leading-none truncate">
               Rajalakshmi Engineering College
@@ -130,14 +127,12 @@
             </span>
           </div>
 
-          <!-- Line 2: NAAC & University Accreditation -->
           <div class="hidden sm:flex items-center gap-1.5 text-[10px] text-slate-400 mt-1 font-mono">
             <span>NAAC 'A++' GRADE</span>
             <span class="text-slate-600">•</span>
             <span>AFFILIATED TO ANNA UNIVERSITY</span>
           </div>
 
-          <!-- Line 3: Location (Below NAAC) & Event Hub Badge -->
           <div class="hidden sm:flex items-center gap-2 text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
             <span>Thandalam, Chennai – 602105</span>
             <span class="text-slate-600">•</span>
@@ -149,6 +144,7 @@
         </div>
       </div>
 
+      <!-- Navigation Center -->
       <nav class="hidden lg:flex items-center gap-1 bg-white/[0.03] border border-white/5 p-1 rounded-2xl text-xs font-semibold">
         <button onclick="navigate('home')" id="nav-home" class="nav-tab px-4 py-2 rounded-xl text-white bg-rec-purple shadow-sm transition-all">Home</button>
         <button onclick="navigate('events')" id="nav-events" class="nav-tab px-4 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all">Events</button>
@@ -156,6 +152,7 @@
         <button onclick="navigate('calendar')" id="nav-calendar" class="nav-tab px-4 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all">Calendar</button>
       </nav>
 
+      <!-- Right Action Items -->
       <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         <button onclick="openSearchModal()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/[0.04] border border-white/10 hover:border-rec-purple/40 text-slate-300 hover:text-white flex items-center justify-center transition-all" title="Search (Ctrl+K)">
           <i class="ph-bold ph-magnifying-glass text-xs sm:text-sm"></i>
@@ -173,12 +170,14 @@
           <span class="sm:hidden">Host</span>
         </button>
 
-        <button onclick="toggleMobileNav()" class="lg:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 active:scale-95">
+        <button onclick="toggleMobileNav()" class="lg:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 active:scale-95" aria-label="Toggle Menu">
           <i class="ph-bold ph-list text-base sm:text-lg"></i>
         </button>
       </div>
+
     </div>
 
+    <!-- Mobile Navigation Drawer -->
     <div id="mobileNav" class="hidden lg:hidden border-t border-white/10 bg-[#07090e] px-4 py-3 space-y-2 text-xs font-semibold">
       <button onclick="navigate('home'); toggleMobileNav();" class="w-full text-left p-2.5 rounded-xl hover:bg-white/5 flex items-center justify-between">
         <span>Home</span> <i class="ph-bold ph-arrow-right text-slate-500"></i>
@@ -262,6 +261,30 @@
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="border-y border-white/5 bg-black/40 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
+          <div class="p-3 sm:p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+            <h3 class="font-display font-extrabold text-xl sm:text-4xl text-rec-gold">25+</h3>
+            <p class="text-[10px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1">Upcoming Events</p>
+          </div>
+          <div class="p-3 sm:p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+            <h3 class="font-display font-extrabold text-xl sm:text-4xl text-rec-purpleGlow">20+</h3>
+            <p class="text-[10px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1">Active Clubs</p>
+          </div>
+          <div class="p-3 sm:p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+            <h3 class="font-display font-extrabold text-xl sm:text-4xl text-white">1000+</h3>
+            <p class="text-[10px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1">Participants</p>
+          </div>
+          <div class="p-3 sm:p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+            <h3 class="font-display font-extrabold text-xl sm:text-4xl text-emerald-400">50+</h3>
+            <p class="text-[10px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1">Competitions</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -357,7 +380,7 @@
     </div>
   </section>
 
-  <!-- VIEW 3: DEDICATED EVENT DETAILS (ALIGNED IDs) -->
+  <!-- VIEW 3: DEDICATED EVENT DETAILS -->
   <section id="view-event-detail" class="page-view hidden flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10 w-full space-y-6 sm:space-y-8">
     <button onclick="navigate('events')" class="inline-flex items-center gap-2 text-xs font-bold text-rec-gold hover:text-amber-300 bg-white/5 border border-white/10 px-4 py-2.5 rounded-xl transition-all">
       <i class="ph-bold ph-arrow-left"></i> Back to Events
@@ -500,27 +523,29 @@
     </div>
   </section>
 
-  <!-- VIEW 6: FULL CAMPUS CALENDAR -->
+  <!-- VIEW 6: FULL CAMPUS ANNUAL CALENDAR -->
   <section id="view-calendar" class="page-view hidden flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 w-full space-y-6">
     <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
       <div>
-        <h1 class="font-display text-2xl sm:text-4xl font-extrabold text-white">CAMPUS CALENDAR</h1>
-        <p class="text-xs sm:text-sm text-slate-400 mt-1">Your complete view of what's happening at REC.</p>
+        <h1 class="font-display text-2xl sm:text-4xl font-extrabold text-white">ANNUAL CAMPUS CALENDAR</h1>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">Full 12-month academic overview for Rajalakshmi Engineering College.</p>
+      </div>
+
+      <div class="flex items-center gap-3 bg-white/5 border border-white/10 p-1.5 rounded-2xl text-xs font-semibold">
+        <button onclick="changeCalendarYear(-1)" class="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-all" aria-label="Previous Year">
+          <i class="ph-bold ph-caret-left"></i>
+        </button>
+        <span id="annualCalendarYear" class="px-3 font-display font-bold text-rec-gold text-sm tracking-wider">2026</span>
+        <button onclick="changeCalendarYear(1)" class="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-all" aria-label="Next Year">
+          <i class="ph-bold ph-caret-right"></i>
+        </button>
+        <button onclick="jumpToCurrentYear()" class="px-3 py-1.5 rounded-xl bg-rec-purple hover:bg-rec-purple/90 text-white font-bold transition-all ml-1">
+          Today
+        </button>
       </div>
     </div>
 
-    <div class="glass-card rounded-3xl p-4 sm:p-8 shadow-2xl border-white/10 overflow-x-auto">
-      <div class="flex items-center justify-between pb-4 border-b border-white/5 min-w-[520px]">
-        <h3 id="fullCalendarHeader" class="font-display font-extrabold text-base sm:text-xl text-white"></h3>
-        <span class="text-xs text-rec-gold font-mono font-bold">2026 Academic Session</span>
-      </div>
-
-      <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center text-[10px] sm:text-xs font-bold text-slate-400 uppercase py-3 border-b border-white/5 min-w-[520px]">
-        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
-      </div>
-
-      <div id="fullCalendarGrid" class="grid grid-cols-7 gap-1 sm:gap-2 pt-3 min-w-[520px]"></div>
-    </div>
+    <div id="fullYearCalendarGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
   </section>
 
   <!-- VIEW 7: PRINTABLE ATTENDANCE SHEET -->
@@ -568,6 +593,21 @@
         </thead>
         <tbody id="attendanceTableBody"></tbody>
       </table>
+    </div>
+
+    <div class="mt-14 pt-6 flex justify-between text-xs font-bold text-center">
+      <div>
+        <div class="w-36 border-b border-black mb-1"></div>
+        <p>Faculty Coordinator</p>
+      </div>
+      <div>
+        <div class="w-36 border-b border-black mb-1"></div>
+        <p>Club President</p>
+      </div>
+      <div>
+        <div class="w-36 border-b border-black mb-1"></div>
+        <p>Head of Department</p>
+      </div>
     </div>
   </section>
 
@@ -676,7 +716,7 @@
     </div>
   </div>
 
-  <!-- MODAL: ADMIN CREATE / EDIT EVENT -->
+  <!-- MODAL: ADMIN CREATE / EDIT EVENT (CATEGORY ADAPTIVE) -->
   <div id="createModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-3 sm:p-4 no-print">
     <div class="glass-card border-white/10 w-full max-w-lg rounded-3xl p-5 sm:p-8 max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center pb-3 border-b border-white/5">
@@ -791,7 +831,46 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT ENGINE -->
+  <!-- FLOATING AI BOT -->
+  <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end no-print">
+    <div id="aiChatWindow" class="hidden w-[calc(100vw-2rem)] sm:w-96 max-w-sm glass-card border-white/10 rounded-3xl shadow-2xl overflow-hidden mb-3 flex flex-col transition-all">
+      <div class="bg-gradient-to-r from-purple-800 to-indigo-700 px-4 py-3 flex items-center justify-between text-white">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center text-sm"><i class="ph-bold ph-robot"></i></div>
+          <div>
+            <p class="text-xs font-bold">REC Event AI Assistant</p>
+            <p class="text-[10px] text-amber-200">Online • Campus Guide</p>
+          </div>
+        </div>
+        <button onclick="toggleAiChat()" class="text-white/80 hover:text-white"><i class="ph-bold ph-x text-base"></i></button>
+      </div>
+
+      <div id="chatMessages" class="p-4 h-60 overflow-y-auto space-y-3 text-xs bg-black/60">
+        <div class="p-3 rounded-2xl bg-white/5 border border-white/5 text-slate-200 leading-relaxed">
+          👋 Welcome to the REC Campus Event Hub! Ask me about email formats, club schedules, or sports & workshop guidelines!
+        </div>
+      </div>
+
+      <div class="px-3 py-2 bg-black/40 border-t border-white/5 flex gap-1.5 overflow-x-auto text-[10px] text-slate-300">
+        <button onclick="sendQuickPrompt('What email is allowed?')" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white/5 hover:bg-rec-gold hover:text-slate-950 transition-colors">Email format?</button>
+        <button onclick="sendQuickPrompt('Phoenix Club events?')" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white/5 hover:bg-rec-gold hover:text-slate-950 transition-colors">Phoenix Club?</button>
+        <button onclick="sendQuickPrompt('Female member rule?')" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white/5 hover:bg-rec-gold hover:text-slate-950 transition-colors">Diversity Rule?</button>
+      </div>
+
+      <div class="p-2.5 bg-black/40 border-t border-white/5 flex gap-2">
+        <input id="chatInput" type="text" placeholder="Ask a question..." onkeypress="handleChatKey(event)" class="flex-1 bg-black/50 text-xs px-3 py-2 rounded-xl border border-white/10 text-white focus:outline-none focus:border-rec-gold">
+        <button onclick="submitChatQuery()" class="px-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold rounded-xl text-xs"><i class="ph-bold ph-paper-plane-right"></i></button>
+      </div>
+    </div>
+
+    <button onclick="toggleAiChat()" class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-amber-400 p-0.5 shadow-2xl active:scale-95 transition-all flex items-center justify-center">
+      <div class="w-full h-full bg-[#07090e] rounded-[14px] flex items-center justify-center text-amber-400 text-xl sm:text-2xl">
+        <i class="ph-fill ph-chat-circle-dots"></i>
+      </div>
+    </button>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
   <script>
     const API_URL = "/api";
     let isAdmin = false;
@@ -800,6 +879,17 @@
     let currentCategoryFilter = 'All';
     let currentSelectedDate = null;
     let selectedDetailEvent = null;
+    let activeCalendarYear = new Date().getFullYear();
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
 
     const categorySchemas = {
       'Hackathon': {
@@ -819,7 +909,7 @@
         contentLabel: 'Hands-on Modules & Agenda',
         contentPlaceholder: 'Module 1: ESP32 Microcontroller Architecture & Sensor Bus\nModule 2: MQTT Telemetry & AWS IoT Core Setup',
         rulesLabel: 'Prerequisites & Tools',
-        rulesPlaceholder: '1. Bring laptop with Arduino IDE.\n2. Boards will be provided.',
+        rulesPlaceholder: '1. Bring laptop with Arduino IDE.\n2. Development boards will be provided.',
         icon: 'ph-chalkboard-teacher',
         detailTitle: 'Workshop Modules & Hands-on Agenda',
         detailRules: 'Prerequisites & Hardware Requirements'
@@ -911,8 +1001,7 @@
     }
 
     async function init() {
-      await loadClubs();
-      await loadEvents();
+      await Promise.all([loadClubs(), loadEvents()]);
       renderMiniCalendar();
       renderFullCalendar();
     }
@@ -949,17 +1038,21 @@
         const homeClubs = document.getElementById("homeClubsGrid");
         const dirClubs = document.getElementById("clubsDirectoryGrid");
         const evSelect = document.getElementById("evClubSelect");
-        if (homeClubs) homeClubs.innerHTML = "";
-        if (dirClubs) dirClubs.innerHTML = "";
-        if (evSelect) evSelect.innerHTML = "";
+        
+        let clubsHtml = "";
+        let optionsHtml = "";
 
         allClubs.forEach(c => {
-          const clubHtml = `
+          const safeName = escapeHtml(c.name);
+          const safeTagline = escapeHtml(c.tagline);
+          const safeIcon = escapeHtml(c.icon || 'ph-users-three');
+
+          clubsHtml += `
             <div class="glass-card glass-card-hover p-5 sm:p-6 rounded-3xl border-white/5 flex flex-col justify-between cursor-pointer group" onclick="openClubDetailPage(${c.id})">
               <div>
                 <div class="flex items-center justify-between mb-3 sm:mb-4">
                   <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-purple-950/60 border border-purple-500/20 text-rec-purpleGlow flex items-center justify-center text-xl sm:text-2xl group-hover:scale-110 transition-transform">
-                    <i class="ph-bold ${c.icon || 'ph-users-three'}"></i>
+                    <i class="ph-bold ${safeIcon}"></i>
                   </div>
                   ${isAdmin ? `
                     <button onclick="event.stopPropagation(); deleteClub(${c.id})" class="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs transition-colors" title="Delete Club">
@@ -967,8 +1060,8 @@
                     </button>
                   ` : ''}
                 </div>
-                <h3 class="font-display font-bold text-sm sm:text-base text-white group-hover:text-amber-300 transition-colors">${c.name}</h3>
-                <p class="text-[11px] sm:text-xs text-slate-400 mt-1 line-clamp-2">${c.tagline}</p>
+                <h3 class="font-display font-bold text-sm sm:text-base text-white group-hover:text-amber-300 transition-colors">${safeName}</h3>
+                <p class="text-[11px] sm:text-xs text-slate-400 mt-1 line-clamp-2">${safeTagline}</p>
               </div>
 
               <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px]">
@@ -977,10 +1070,12 @@
               </div>
             </div>
           `;
-          if (homeClubs) homeClubs.innerHTML += clubHtml;
-          if (dirClubs) dirClubs.innerHTML += clubHtml;
-          if (evSelect) evSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+          optionsHtml += `<option value="${c.id}">${safeName}</option>`;
         });
+
+        if (homeClubs) homeClubs.innerHTML = clubsHtml;
+        if (dirClubs) dirClubs.innerHTML = clubsHtml;
+        if (evSelect) evSelect.innerHTML = optionsHtml;
       } catch (err) {
         console.error("Clubs load failure:", err);
       }
@@ -1016,39 +1111,42 @@
     function renderHomeEvents() {
       const container = document.getElementById("homeEventsGrid");
       if (!container) return;
-      container.innerHTML = "";
 
-      allEvents.slice(0, 3).forEach(e => {
+      const sample = allEvents.slice(0, 3);
+      let html = "";
+
+      sample.forEach(e => {
         const status = getStatusBadge(e.filled, e.total);
-        container.innerHTML += `
+        html += `
           <div class="glass-card glass-card-hover p-5 sm:p-6 rounded-3xl border-white/5 flex flex-col justify-between cursor-pointer" onclick="openEventDetailPage(${e.id})">
             <div>
               <div class="flex items-center justify-between gap-2 mb-2.5">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-950/80 text-purple-200 border border-purple-500/20 uppercase tracking-wider">${e.clubName}</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-950/80 text-purple-200 border border-purple-500/20 uppercase tracking-wider">${escapeHtml(e.clubName)}</span>
                 <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${status.class}">${status.text}</span>
               </div>
-              <h3 class="font-display font-bold text-base sm:text-lg text-white">${e.title}</h3>
+              <h3 class="font-display font-bold text-base sm:text-lg text-white">${escapeHtml(e.title)}</h3>
               
               <div class="mt-3 space-y-1 text-xs text-slate-400 font-mono">
-                <div class="flex items-center gap-1.5"><i class="ph-bold ph-calendar text-rec-gold"></i> ${e.date}</div>
-                <div class="flex items-center gap-1.5"><i class="ph-bold ph-clock text-rec-gold"></i> ${e.startTime}</div>
-                <div class="flex items-center gap-1.5"><i class="ph-bold ph-map-pin text-rec-gold"></i> ${e.venue}</div>
+                <div class="flex items-center gap-1.5"><i class="ph-bold ph-calendar text-rec-gold"></i> ${escapeHtml(e.date)}</div>
+                <div class="flex items-center gap-1.5"><i class="ph-bold ph-clock text-rec-gold"></i> ${escapeHtml(e.startTime)}</div>
+                <div class="flex items-center gap-1.5"><i class="ph-bold ph-map-pin text-rec-gold"></i> ${escapeHtml(e.venue)}</div>
               </div>
             </div>
 
             <div class="mt-5 pt-3 border-t border-white/5 flex items-center justify-between gap-2">
               <span class="text-xs font-bold text-amber-400" onclick="event.stopPropagation(); openEventDetailPage(${e.id})">View Event →</span>
-              <button onclick="event.stopPropagation(); openRegisterModal(${e.id}, '${e.title.replace(/'/g, "\\'")}')" ${status.isFull ? 'disabled' : ''} class="px-4 py-2 rounded-xl text-xs font-bold ${status.isFull ? 'bg-slate-800 text-slate-500' : 'bg-rec-purple hover:bg-rec-purple/90 text-white shadow-md'}">
+              <button onclick="event.stopPropagation(); openRegisterModal(${e.id})" ${status.isFull ? 'disabled' : ''} class="px-4 py-2 rounded-xl text-xs font-bold ${status.isFull ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-rec-purple hover:bg-rec-purple/90 text-white shadow-md'}">
                 Register
               </button>
             </div>
           </div>
         `;
       });
+      container.innerHTML = html;
     }
 
     function applyEventFilters() {
-      const query = (document.getElementById("eventsFilterSearch")?.value || "").toLowerCase();
+      const query = (document.getElementById("eventsFilterSearch")?.value || "").toLowerCase().trim();
       let filtered = allEvents;
 
       if (currentCategoryFilter !== 'All') {
@@ -1060,14 +1158,16 @@
         }
       }
 
-      if (currentSelectedDate) filtered = filtered.filter(e => e.date === currentSelectedDate);
+      if (currentSelectedDate) {
+        filtered = filtered.filter(e => e.date === currentSelectedDate);
+      }
 
       if (query) {
         filtered = filtered.filter(e => 
-          e.title.toLowerCase().includes(query) ||
-          e.clubName.toLowerCase().includes(query) ||
+          (e.title && e.title.toLowerCase().includes(query)) ||
+          (e.clubName && e.clubName.toLowerCase().includes(query)) ||
           (e.category && e.category.toLowerCase().includes(query)) ||
-          e.venue.toLowerCase().includes(query)
+          (e.venue && e.venue.toLowerCase().includes(query))
         );
       }
 
@@ -1076,37 +1176,37 @@
       if (badge) badge.innerText = filtered.length;
       if (!list) return;
 
-      list.innerHTML = "";
       if (filtered.length === 0) {
         list.innerHTML = `<div class="p-8 text-center text-slate-500 glass-card rounded-3xl border-white/5">No campus events match your selected filters.</div>`;
         return;
       }
 
+      let html = "";
       filtered.forEach(e => {
         const pct = Math.min(100, Math.round((e.filled / e.total) * 100));
         const status = getStatusBadge(e.filled, e.total);
 
-        list.innerHTML += `
+        html += `
           <div class="glass-card glass-card-hover p-5 sm:p-7 rounded-3xl border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 cursor-pointer" onclick="openEventDetailPage(${e.id})">
             
             <div class="flex-1 space-y-2">
               <div class="flex flex-wrap items-center gap-1.5">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-950/80 text-purple-200 border border-purple-500/20 uppercase">${e.clubName}</span>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 text-slate-300 border border-white/10 uppercase">${e.category}</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-950/80 text-purple-200 border border-purple-500/20 uppercase tracking-wider">${escapeHtml(e.clubName)}</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 text-slate-300 border border-white/10 uppercase">${escapeHtml(e.category)}</span>
                 <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${status.class}">${status.text}</span>
               </div>
 
-              <h3 class="font-display font-extrabold text-base sm:text-xl text-white hover:text-amber-300 transition-colors">${e.title}</h3>
+              <h3 class="font-display font-extrabold text-base sm:text-xl text-white hover:text-amber-300 transition-colors">${escapeHtml(e.title)}</h3>
 
               <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400 font-mono">
-                <span><i class="ph-bold ph-calendar text-rec-gold"></i> ${e.date}</span>
-                <span><i class="ph-bold ph-clock text-rec-gold"></i> ${e.startTime}</span>
-                <span><i class="ph-bold ph-map-pin text-rec-gold"></i> ${e.venue}</span>
+                <span><i class="ph-bold ph-calendar text-rec-gold"></i> ${escapeHtml(e.date)}</span>
+                <span><i class="ph-bold ph-clock text-rec-gold"></i> ${escapeHtml(e.startTime)}</span>
+                <span><i class="ph-bold ph-map-pin text-rec-gold"></i> ${escapeHtml(e.venue)}</span>
               </div>
 
               <div class="w-full max-w-sm pt-1">
                 <div class="flex justify-between text-[11px] text-slate-400 mb-1">
-                  <span>${e.filled} / ${e.total} filled</span>
+                  <span>${e.filled} /${e.total} filled</span>
                   <span class="font-bold text-rec-gold">${pct}%</span>
                 </div>
                 <div class="w-full bg-black/60 h-1.5 rounded-full overflow-hidden border border-white/5">
@@ -1118,19 +1218,19 @@
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-3 md:pt-0 border-t border-white/5 md:border-t-0 shrink-0 w-full md:w-auto" onclick="event.stopPropagation()">
               ${isAdmin ? `
                 <div class="grid grid-cols-3 gap-2 w-full sm:w-auto">
-                  <button onclick="openEditEventModal(${e.id})" class="px-2.5 py-2 text-xs font-bold text-indigo-300 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 rounded-xl flex items-center justify-center gap-1 transition-colors">
+                  <button onclick="openEditEventModal(${e.id})" class="px-2.5 py-2 text-xs font-bold text-indigo-300 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 rounded-xl flex items-center justify-center gap-1 transition-colors" title="Edit Event">
                     <i class="ph-bold ph-pencil-simple"></i> <span>Edit</span>
                   </button>
-                  <button onclick="generateAttendanceSheet(${e.id})" class="px-2.5 py-2 text-xs font-bold text-amber-300 bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 rounded-xl flex items-center justify-center gap-1 transition-colors">
+                  <button onclick="generateAttendanceSheet(${e.id})" class="px-2.5 py-2 text-xs font-bold text-amber-300 bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 rounded-xl flex items-center justify-center gap-1 transition-colors" title="Attendance Sheet">
                     <i class="ph-bold ph-clipboard-text"></i> <span>Roster</span>
                   </button>
-                  <button onclick="deleteEvent(${e.id})" class="p-2 text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 rounded-xl text-sm flex items-center justify-center">
+                  <button onclick="deleteEvent(${e.id})" class="p-2 text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 rounded-xl text-sm flex items-center justify-center" title="Delete">
                     <i class="ph-bold ph-trash"></i>
                   </button>
                 </div>
               ` : ''}
 
-              <button onclick="openRegisterModal(${e.id}, '${e.title.replace(/'/g, "\\'")}')" ${status.isFull ? 'disabled' : ''} class="w-full sm:w-auto px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl font-bold text-xs text-center transition-all ${status.isFull ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 text-slate-950 shadow-lg shadow-amber-400/20 active:scale-95'}">
+              <button onclick="openRegisterModal(${e.id})" ${status.isFull ? 'disabled' : ''} class="w-full sm:w-auto px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl font-bold text-xs text-center transition-all ${status.isFull ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 text-slate-950 shadow-lg shadow-amber-400/20 active:scale-95'}">
                 ${status.isFull ? 'Sold Out' : 'Register Now →'}
               </button>
             </div>
@@ -1138,6 +1238,7 @@
           </div>
         `;
       });
+      list.innerHTML = html;
     }
 
     function setFilterCategory(cat) {
@@ -1155,23 +1256,28 @@
       applyEventFilters();
     }
 
+    function filterEventsByCategory(cat) {
+      navigate('events');
+      setFilterCategory(cat);
+    }
+
     function renderMiniCalendar() {
       const today = new Date();
       const year = today.getFullYear();
       const month = today.getMonth();
       const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       const lbl = document.getElementById("miniCalendarMonth");
-      if (lbl) lbl.innerText = `${monthNames[month]} ${year}`;
+      if (lbl) lbl.innerText = `${monthNames[month]}${year}`;
 
       const grid = document.getElementById("miniCalendarGrid");
       if (!grid) return;
-      grid.innerHTML = "";
 
       const firstDayIndex = new Date(year, month, 1).getDay();
       const lastDay = new Date(year, month + 1, 0).getDate();
       const eventDates = new Set(allEvents.map(e => e.date));
 
-      for (let i = 0; i < firstDayIndex; i++) grid.innerHTML += `<div></div>`;
+      let gridHtml = "";
+      for (let i = 0; i < firstDayIndex; i++) gridHtml += `<div></div>`;
 
       for (let day = 1; day <= lastDay; day++) {
         const m = String(month + 1).padStart(2, '0');
@@ -1180,13 +1286,13 @@
         const hasEvent = eventDates.has(dateStr);
         const isSelected = currentSelectedDate === dateStr;
 
-        grid.innerHTML += `
+        gridHtml += `
           <button onclick="selectCalendarDate('${dateStr}')" class="h-7 sm:h-8 rounded-lg flex flex-col items-center justify-center font-medium transition-all relative ${isSelected ? 'bg-amber-400 text-slate-950 font-bold' : hasEvent ? 'bg-purple-950/70 border border-purple-500/30 text-white font-bold' : 'text-slate-400 hover:bg-white/5'}">
-            <span>${day}</span>
-            ${hasEvent ? `<span class="w-1.5 h-1.5 rounded-full bg-rec-gold absolute bottom-0.5"></span>` : ''}
+            <span>${day}</span>${hasEvent ? `<span class="w-1.5 h-1.5 rounded-full bg-rec-gold absolute bottom-0.5"></span>` : ''}
           </button>
         `;
       }
+      grid.innerHTML = gridHtml;
     }
 
     function selectCalendarDate(dateStr) {
@@ -1201,7 +1307,7 @@
       applyEventFilters();
     }
 
-    // SAFE EVENT DETAIL OPENER (NEVER CRASHES)
+    // SAFE EVENT DETAILS OPENER
     async function openEventDetailPage(id) {
       try {
         let data = allEvents.find(e => e.id == id);
@@ -1236,10 +1342,10 @@
         }
 
         setTxt("dtlEventTitle", data.title);
-        setHtm("dtlEventDate", `<i class="ph-bold ph-calendar text-rec-gold"></i> ${data.date}`);
-        setHtm("dtlEventTime", `<i class="ph-bold ph-clock text-rec-gold"></i> ${data.startTime} – ${data.endTime}`);
-        setHtm("dtlEventVenue", `<i class="ph-bold ph-map-pin text-rec-gold"></i> ${data.venue}`);
-        setHtm("dtlEventSeats", `<i class="ph-bold ph-users text-rec-gold"></i> ${data.filled} / ${data.total}`);
+        setHtm("dtlEventDate", `<i class="ph-bold ph-calendar text-rec-gold"></i> ${escapeHtml(data.date)}`);
+        setHtm("dtlEventTime", `<i class="ph-bold ph-clock text-rec-gold"></i> ${escapeHtml(data.startTime)} –${escapeHtml(data.endTime)}`);
+        setHtm("dtlEventVenue", `<i class="ph-bold ph-map-pin text-rec-gold"></i> ${escapeHtml(data.venue)}`);
+        setHtm("dtlEventSeats", `<i class="ph-bold ph-users text-rec-gold"></i> ${data.filled} /${data.total}`);
         setTxt("dtlSeatsLabel", schema.seatsLabel);
 
         setTxt("dtlSectionTitle", schema.detailTitle);
@@ -1277,7 +1383,7 @@
 
     function openRegisterModalFromDetails() {
       if (selectedDetailEvent) {
-        openRegisterModal(selectedDetailEvent.id, selectedDetailEvent.title);
+        openRegisterModal(selectedDetailEvent.id);
       }
     }
 
@@ -1289,33 +1395,34 @@
       document.getElementById("clubDetailTagline").innerText = club.tagline;
 
       const container = document.getElementById("clubSpecificEventsGrid");
-      container.innerHTML = "";
-
       const clubEvents = allEvents.filter(e => e.clubId === clubId);
+
       if (clubEvents.length === 0) {
         container.innerHTML = `<div class="p-8 text-center text-slate-500 glass-card rounded-3xl border-white/5 col-span-full">No active events currently scheduled by this club.</div>`;
       } else {
+        let html = "";
         clubEvents.forEach(e => {
           const status = getStatusBadge(e.filled, e.total);
-          container.innerHTML += `
+          html += `
             <div class="glass-card glass-card-hover p-5 rounded-3xl border-white/5 flex flex-col justify-between cursor-pointer" onclick="openEventDetailPage(${e.id})">
               <div>
                 <div class="flex items-center justify-between mb-2">
-                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-white/5 text-slate-300 uppercase">${e.category}</span>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-white/5 text-slate-300 uppercase">${escapeHtml(e.category)}</span>
                   <span class="text-[10px] font-bold px-2 py-0.5 rounded ${status.class}">${status.text}</span>
                 </div>
-                <h4 class="font-bold text-white text-sm sm:text-base">${e.title}</h4>
-                <p class="text-xs text-slate-400 mt-2 font-mono"><i class="ph-bold ph-calendar text-rec-gold"></i> ${e.date} • ${e.startTime}</p>
-                <p class="text-xs text-slate-400 font-mono"><i class="ph-bold ph-map-pin text-rec-gold"></i> ${e.venue}</p>
+                <h4 class="font-bold text-white text-sm sm:text-base">${escapeHtml(e.title)}</h4>
+                <p class="text-xs text-slate-400 mt-2 font-mono"><i class="ph-bold ph-calendar text-rec-gold"></i> ${escapeHtml(e.date)} •${escapeHtml(e.startTime)}</p>
+                <p class="text-xs text-slate-400 font-mono"><i class="ph-bold ph-map-pin text-rec-gold"></i> ${escapeHtml(e.venue)}</p>
               </div>
 
               <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs">
                 <span class="text-rec-gold font-bold" onclick="event.stopPropagation(); openEventDetailPage(${e.id})">Details →</span>
-                <span class="text-slate-500">${e.filled} / ${e.total} seats</span>
+                <span class="text-slate-500">${e.filled} /${e.total} seats</span>
               </div>
             </div>
           `;
         });
+        container.innerHTML = html;
       }
 
       navigate('club-detail');
@@ -1331,49 +1438,129 @@
         btn.classList.add("bg-amber-400", "text-slate-950");
         btn.classList.remove("bg-white/5", "text-white");
         btn.innerHTML = `<i class="ph-bold ph-check"></i> <span>Following</span>`;
-        Swal.fire({ icon: 'success', title: 'Notifications Enabled', timer: 1200, showConfirmButton: false, background: '#0d111a', color: '#fff' });
+        Swal.fire({ icon: 'success', title: 'Notifications Enabled', text: 'You will receive updates for new events from this club!', timer: 1200, showConfirmButton: false, background: '#0d111a', color: '#fff' });
       }
     }
 
+    function changeCalendarYear(delta) {
+      activeCalendarYear += delta;
+      renderFullCalendar();
+    }
+
+    function jumpToCurrentYear() {
+      activeCalendarYear = new Date().getFullYear();
+      renderFullCalendar();
+    }
+
     function renderFullCalendar() {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = today.getMonth();
-      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      
-      const hdr = document.getElementById("fullCalendarHeader");
-      if (hdr) hdr.innerText = `${monthNames[month]} ${year}`;
+      const yearContainer = document.getElementById("fullYearCalendarGrid");
+      const yearLabel = document.getElementById("annualCalendarYear");
+      if (!yearContainer) return;
 
-      const grid = document.getElementById("fullCalendarGrid");
-      if (!grid) return;
-      grid.innerHTML = "";
+      if (yearLabel) yearLabel.innerText = `${activeCalendarYear}`;
 
-      const firstDay = new Date(year, month, 1).getDay();
-      const lastDay = new Date(year, month + 1, 0).getDate();
+      const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+      const dayHeaders = ["S", "M", "T", "W", "T", "F", "S"];
 
-      for (let i = 0; i < firstDay; i++) {
-        grid.innerHTML += `<div class="h-20 sm:h-28 rounded-2xl bg-white/[0.01] border border-white/5"></div>`;
-      }
+      const eventMap = new Map();
+      allEvents.forEach(e => {
+        if (!eventMap.has(e.date)) eventMap.set(e.date, []);
+        eventMap.get(e.date).push(e);
+      });
 
-      for (let day = 1; day <= lastDay; day++) {
-        const m = String(month + 1).padStart(2, '0');
-        const d = String(day).padStart(2, '0');
-        const dateStr = `${year}-${m}-${d}`;
-        const dayEvents = allEvents.filter(e => e.date === dateStr);
+      const todayStr = new Date().toISOString().split('T')[0];
+      let yearHtml = "";
 
-        grid.innerHTML += `
-          <div class="h-20 sm:h-28 p-1.5 sm:p-2.5 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col justify-between overflow-hidden">
-            <span class="text-xs font-bold ${dayEvents.length > 0 ? 'text-rec-gold' : 'text-slate-500'}">${day}</span>
-            <div class="space-y-1 overflow-y-auto max-h-12 sm:max-h-16">
-              ${dayEvents.map(e => `
-                <div onclick="openEventDetailPage(${e.id})" class="text-[8px] sm:text-[9px] font-bold px-1 py-0.5 rounded bg-purple-950/80 text-purple-200 truncate cursor-pointer hover:bg-rec-purple hover:text-white" title="${e.title}">
-                  ${e.title}
-                </div>
-              `).join('')}
+      for (let month = 0; month < 12; month++) {
+        const firstDayIndex = new Date(activeCalendarYear, month, 1).getDay();
+        const totalDays = new Date(activeCalendarYear, month + 1, 0).getDate();
+
+        yearHtml += `
+          <div class="glass-card rounded-3xl p-5 border-white/5 flex flex-col justify-between hover:border-rec-purple/40 transition-all">
+            <div>
+              <div class="flex items-center justify-between pb-3 border-b border-white/5 mb-3">
+                <h3 class="font-display font-bold text-sm text-white">${monthNames[month]}</h3>
+                <span class="text-[10px] text-slate-500 font-mono">${String(month + 1).padStart(2, '0')}/${activeCalendarYear}</span>
+              </div>
+
+              <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-slate-500 mb-2">
+                ${dayHeaders.map(d => `<span>${d}</span>`).join('')}
+              </div>
+
+              <div class="grid grid-cols-7 gap-1 text-center text-xs">
+        `;
+
+        for (let i = 0; i < firstDayIndex; i++) {
+          yearHtml += `<div class="h-8"></div>`;
+        }
+
+        for (let day = 1; day <= totalDays; day++) {
+          const m = String(month + 1).padStart(2, '0');
+          const d = String(day).padStart(2, '0');
+          const dateStr = `${activeCalendarYear}-${m}-${d}`;
+
+          const dayEvents = eventMap.get(dateStr) || [];
+          const hasEvent = dayEvents.length > 0;
+          const isToday = dateStr === todayStr;
+
+          let cellClasses = "h-8 rounded-lg flex flex-col items-center justify-center font-medium transition-all relative text-[11px] ";
+          let tooltip = `${day}${monthNames[month]}`;
+
+          if (hasEvent) {
+            cellClasses += "bg-purple-950/80 border border-purple-500/40 text-rec-gold font-bold hover:scale-105 cursor-pointer ";
+            tooltip += ` • ${dayEvents.length} event(s)`;
+          } else if (isToday) {
+            cellClasses += "border border-amber-400 text-amber-300 font-bold ";
+          } else {
+            cellClasses += "text-slate-400 hover:bg-white/5 ";
+          }
+
+          const clickAction = hasEvent ? `onclick="showDayEventsList('${dateStr}')"` : ``;
+
+          yearHtml += `
+            <button ${clickAction} class="${cellClasses}" title="${tooltip}">
+              <span>${day}</span>
+              ${hasEvent ? `<span class="w-1.5 h-1.5 rounded-full bg-rec-gold absolute bottom-0.5 animate-pulse"></span>` : ''}
+            </button>
+          `;
+        }
+
+        yearHtml += `
+              </div>
             </div>
           </div>
         `;
       }
+
+      yearContainer.innerHTML = yearHtml;
+    }
+
+    function showDayEventsList(dateStr) {
+      const eventsOnDay = allEvents.filter(e => e.date === dateStr);
+      if (eventsOnDay.length === 0) return;
+
+      let itemsHtml = `<div class="space-y-3 text-left max-h-60 overflow-y-auto mt-3">`;
+      eventsOnDay.forEach(e => {
+        itemsHtml += `
+          <div onclick="Swal.close(); openEventDetailPage(${e.id})" class="p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 cursor-pointer transition-all">
+            <p class="font-bold text-white text-xs">${escapeHtml(e.title)}</p>
+            <p class="text-[10px] text-rec-gold mt-0.5">${escapeHtml(e.clubName)} • ${escapeHtml(e.startTime)} • ${escapeHtml(e.venue)}</p>
+          </div>
+        `;
+      });
+      itemsHtml += `</div>`;
+
+      Swal.fire({
+        title: `Events on ${dateStr}`,
+        html: itemsHtml,
+        background: '#0d111a',
+        color: '#fff',
+        showConfirmButton: false,
+        showCloseButton: true
+      });
     }
 
     async function generateAttendanceSheet(eventId) {
@@ -1389,23 +1576,23 @@
         document.getElementById("attCount").innerText = `${data.students.length} Candidates`;
 
         const tbody = document.getElementById("attendanceTableBody");
-        tbody.innerHTML = "";
-
         if (data.students.length === 0) {
           tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center border border-black font-semibold">No students registered yet for this event.</td></tr>`;
         } else {
+          let rowsHtml = "";
           data.students.forEach((s, idx) => {
-            tbody.innerHTML += `
+            rowsHtml += `
               <tr class="border-b border-black">
                 <td class="p-2 border border-black text-center font-mono">${idx + 1}</td>
-                <td class="p-2 border border-black font-mono font-bold">${s.regNo}</td>
-                <td class="p-2 border border-black">${s.name}</td>
-                <td class="p-2 border border-black">${s.dept}</td>
-                <td class="p-2 border border-black font-mono text-[11px]">${s.email}</td>
+                <td class="p-2 border border-black font-mono font-bold">${escapeHtml(s.regNo)}</td>
+                <td class="p-2 border border-black">${escapeHtml(s.name)}</td>
+                <td class="p-2 border border-black">${escapeHtml(s.dept)}</td>
+                <td class="p-2 border border-black font-mono text-[11px]">${escapeHtml(s.email)}</td>
                 <td class="p-2 border border-black text-center"></td>
               </tr>
             `;
           });
+          tbody.innerHTML = rowsHtml;
         }
 
         document.querySelectorAll('.page-view').forEach(v => v.classList.add('hidden'));
@@ -1421,9 +1608,10 @@
       navigate('events');
     }
 
-    function openRegisterModal(id, title) {
+    function openRegisterModal(id) {
+      const ev = allEvents.find(e => e.id === id);
       document.getElementById("selectedEventId").value = id;
-      document.getElementById("regModalEventTitle").innerText = title;
+      document.getElementById("regModalEventTitle").innerText = ev ? ev.title : "Event Registration";
       document.getElementById("registerModal").classList.remove("hidden");
     }
 
@@ -1457,20 +1645,37 @@
         dept: document.getElementById("studentDept").value
       });
 
-      const res = await fetch(`${API_URL}/register`, { method: "POST", body: payload });
-      const msg = await res.text();
+      try {
+        const res = await fetch(`${API_URL}/register`, { method: "POST", body: payload });
+        const msg = await res.text();
 
-      if (res.status === 200) {
-        closeRegisterModal();
-        const passKey = "REC-" + Math.floor(1000 + Math.random() * 9000) + "-CSE";
-        document.getElementById("ticketEventName").innerText = eventTitle;
-        document.getElementById("ticketPassKey").innerText = passKey;
-        document.getElementById("ticketModal").classList.remove("hidden");
-        await loadEvents();
-      } else if (res.status === 409) {
-        Swal.fire({ icon: 'warning', title: 'Duplicate Entry', text: 'You are already registered for this event.', background: '#0d111a', color: '#f8fafc', confirmButtonColor: '#7c3aed' });
-      } else {
-        Swal.fire({ icon: 'error', title: 'Registration Rejected', text: msg, background: '#0d111a', color: '#f8fafc' });
+        if (res.status === 200) {
+          closeRegisterModal();
+          const passKey = "REC-" + Math.floor(1000 + Math.random() * 9000) + "-CSE";
+          document.getElementById("ticketEventName").innerText = eventTitle;
+          document.getElementById("ticketPassKey").innerText = passKey;
+          document.getElementById("ticketModal").classList.remove("hidden");
+          await loadEvents();
+        } else if (res.status === 409) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Duplicate Entry',
+            text: 'You have already registered for this event with this REC Register Number or Email ID.',
+            background: '#0d111a',
+            color: '#f8fafc',
+            confirmButtonColor: '#7c3aed'
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Registration Rejected',
+            text: msg,
+            background: '#0d111a',
+            color: '#f8fafc'
+          });
+        }
+      } catch (err) {
+        Swal.fire({ icon: 'error', title: 'Network Error', text: 'Could not complete registration. Check server status.', background: '#0d111a', color: '#f8fafc' });
       }
     }
 
@@ -1501,13 +1706,15 @@
         confirmButtonColor: '#7c3aed'
       });
 
-      if (pass === "admin123") {
+      if (pass === "admin123" || pass === "#rec") {
         isAdmin = true;
         document.getElementById("adminBtnLabel").innerText = "Exit Admin";
         const mobileLabel = document.getElementById("adminBtnLabelMobile");
         if (mobileLabel) mobileLabel.innerText = "Exit";
         document.getElementById("headerHostBtn").classList.remove("hidden");
+        document.getElementById("headerHostBtn").classList.add("inline-flex");
         document.getElementById("adminAddClubBtn").classList.remove("hidden");
+        document.getElementById("adminAddClubBtn").classList.add("inline-flex");
         Swal.fire({ icon: 'success', title: 'Admin mode active', timer: 1000, showConfirmButton: false, background: '#0d111a', color: '#fff' });
         applyEventFilters();
         loadClubs();
@@ -1519,7 +1726,7 @@
     function openCreateModal() {
       document.getElementById("editEventId").value = "";
       document.getElementById("createForm").reset();
-      document.getElementById("modalEventHeading").innerText = "Publish Event";
+      document.getElementById("modalEventHeading").innerText = "Publish Event Under Club";
       document.getElementById("saveEventSubmitBtn").innerText = "Publish Event";
       updateCategoryFields();
       document.getElementById("createModal").classList.remove("hidden");
@@ -1545,7 +1752,7 @@
         document.getElementById("evProblemStatements").value = data.ps || "";
         document.getElementById("evRules").value = data.rules || "";
 
-        document.getElementById("modalEventHeading").innerText = "Edit Event Details";
+        document.getElementById("modalEventHeading").innerText = "Edit Event Details (Admin)";
         document.getElementById("saveEventSubmitBtn").innerText = "Update Changes";
         document.getElementById("createModal").classList.remove("hidden");
       } catch (err) {
@@ -1583,14 +1790,28 @@
         closeCreateModal();
         document.getElementById("createForm").reset();
         await loadEvents();
-        Swal.fire({ icon: 'success', title: isEdit ? 'Event Updated!' : 'Event Published!', timer: 1200, showConfirmButton: false, background: '#0d111a', color: '#fff' });
+        Swal.fire({
+          icon: 'success',
+          title: isEdit ? 'Event Updated Successfully!' : 'Event Published!',
+          timer: 1300,
+          showConfirmButton: false,
+          background: '#0d111a',
+          color: '#fff'
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Failed to Save Event',
+          background: '#0d111a',
+          color: '#fff'
+        });
       }
     }
 
     async function deleteEvent(id) {
       const result = await Swal.fire({
         title: 'Delete this competition?',
-        text: 'Registrations will be removed.',
+        text: 'All corresponding registrations will be permanently deleted.',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#7c3aed',
@@ -1628,7 +1849,7 @@
     async function deleteClub(id) {
       const result = await Swal.fire({
         title: 'Delete this campus club?',
-        text: 'All events under this club will also be removed.',
+        text: 'All events and registrations under this club will be permanently removed.',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#e11d48',
@@ -1657,27 +1878,34 @@
       const q = document.getElementById("globalSearchInput").value.trim().toLowerCase();
       const box = document.getElementById("searchResultsBox");
       if (!q) {
-        box.innerHTML = `<p class="text-slate-500 text-center py-6">Type a query to search...</p>`;
+        box.innerHTML = `<p class="text-slate-500 text-center py-6">Type a query to search events or clubs...</p>`;
         return;
       }
 
-      const evMatches = allEvents.filter(e => e.title.toLowerCase().includes(q) || e.clubName.toLowerCase().includes(q));
-      const clubMatches = allClubs.filter(c => c.name.toLowerCase().includes(q));
+      const evMatches = allEvents.filter(e => 
+        (e.title && e.title.toLowerCase().includes(q)) || 
+        (e.clubName && e.clubName.toLowerCase().includes(q)) || 
+        (e.venue && e.venue.toLowerCase().includes(q))
+      );
+      const clubMatches = allClubs.filter(c => 
+        (c.name && c.name.toLowerCase().includes(q)) || 
+        (c.tagline && c.tagline.toLowerCase().includes(q))
+      );
 
-      let html = "";
       if (evMatches.length === 0 && clubMatches.length === 0) {
         box.innerHTML = `<p class="text-slate-500 text-center py-6">No matching events or clubs found.</p>`;
         return;
       }
 
+      let html = "";
       if (evMatches.length > 0) {
         html += `<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Events</p>`;
         evMatches.forEach(e => {
           html += `
             <div onclick="closeSearchModal(); openEventDetailPage(${e.id})" class="p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] cursor-pointer flex justify-between items-center transition-all">
               <div>
-                <p class="font-bold text-white text-xs">${e.title}</p>
-                <p class="text-[10px] text-slate-400">${e.clubName} • ${e.date}</p>
+                <p class="font-bold text-white text-xs">${escapeHtml(e.title)}</p>
+                <p class="text-[10px] text-slate-400">${escapeHtml(e.clubName)} • ${escapeHtml(e.date)}</p>
               </div>
               <span class="text-rec-gold text-xs">View →</span>
             </div>
@@ -1691,8 +1919,8 @@
           html += `
             <div onclick="closeSearchModal(); openClubDetailPage(${c.id})" class="p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] cursor-pointer flex justify-between items-center transition-all">
               <div>
-                <p class="font-bold text-white text-xs">${c.name}</p>
-                <p class="text-[10px] text-slate-400">${c.tagline}</p>
+                <p class="font-bold text-white text-xs">${escapeHtml(c.name)}</p>
+                <p class="text-[10px] text-slate-400">${escapeHtml(c.tagline)}</p>
               </div>
               <span class="text-rec-purpleGlow text-xs">Explore →</span>
             </div>
@@ -1701,6 +1929,49 @@
       }
 
       box.innerHTML = html;
+    }
+
+    function filterClubsGrid() {
+      const q = (document.getElementById("clubsSearchInput")?.value || "").toLowerCase().trim();
+      const grid = document.getElementById("clubsDirectoryGrid");
+      if (!grid) return;
+
+      const filtered = allClubs.filter(c => 
+        (c.name && c.name.toLowerCase().includes(q)) || 
+        (c.tagline && c.tagline.toLowerCase().includes(q))
+      );
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="p-8 text-center text-slate-500 glass-card rounded-3xl border-white/5 col-span-full">No clubs match your query.</div>`;
+        return;
+      }
+
+      let html = "";
+      filtered.forEach(c => {
+        html += `
+          <div class="glass-card glass-card-hover p-6 rounded-3xl border-white/5 flex flex-col justify-between cursor-pointer group" onclick="openClubDetailPage(${c.id})">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-950/60 border border-purple-500/20 text-rec-purpleGlow flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                  <i class="ph-bold ${escapeHtml(c.icon || 'ph-users-three')}"></i>
+                </div>
+                ${isAdmin ? `
+                  <button onclick="event.stopPropagation(); deleteClub(${c.id})" class="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs transition-colors" title="Delete Club">
+                    <i class="ph-bold ph-trash"></i>
+                  </button>
+                ` : ''}
+              </div>
+              <h3 class="font-display font-bold text-base text-white group-hover:text-amber-300 transition-colors">${escapeHtml(c.name)}</h3>
+              <p class="text-xs text-slate-400 mt-1 line-clamp-2">${escapeHtml(c.tagline)}</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[11px]">
+              <span class="text-slate-500 font-mono">REC Chapter</span>
+              <span class="text-rec-gold font-bold flex items-center gap-1">Explore <i class="ph-bold ph-arrow-right"></i></span>
+            </div>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
     }
 
     function handleHeroSearch(e) { if (e.key === 'Enter') runHeroSearch(); }
@@ -1715,10 +1986,51 @@
       }
     }
 
+    function toggleAiChat() { document.getElementById("aiChatWindow").classList.toggle("hidden"); }
+    function sendQuickPrompt(t) { document.getElementById("chatInput").value = t; submitChatQuery(); }
+    function handleChatKey(e) { if (e.key === 'Enter') submitChatQuery(); }
+
+    function submitChatQuery() {
+      const input = document.getElementById("chatInput");
+      const q = input.value.trim();
+      if (!q) return;
+
+      const chat = document.getElementById("chatMessages");
+      chat.innerHTML += `<div class="p-2.5 rounded-2xl bg-rec-purple text-white ml-6 text-right leading-relaxed">${escapeHtml(q)}</div>`;
+      input.value = "";
+
+      setTimeout(() => {
+        let answer = "I can guide you on REC clubs, schedules, and email validation!";
+        const queryLower = q.toLowerCase();
+
+        if (queryLower.includes("email") || queryLower.includes("mail")) {
+          answer = "Only official college mail IDs ending with @rajalakshmi.edu.in (e.g. vaibevsai.ss.2025.csecs@rajalakshmi.edu.in) are accepted.";
+        } else if (queryLower.includes("phoenix") || queryLower.includes("club")) {
+          answer = "Explore the Clubs directory on top to view activities conducted specifically by Phoenix Club or other societies.";
+        } else if (queryLower.includes("female") || queryLower.includes("diversity")) {
+          answer = "REC Diversity Policy: Every hackathon squad must have at least 1 female team participant for stage evaluations.";
+        } else if (queryLower.includes("sports")) {
+          answer = "Sports events feature specific tournament formats, match fixtures, and footwear/kit requirements.";
+        } else if (queryLower.includes("attendance")) {
+          answer = "Admins can view and print official attendance sheets with date, start time, end time, and signature columns in Admin mode.";
+        }
+
+        chat.innerHTML += `<div class="p-2.5 rounded-2xl bg-white/5 border border-white/5 text-slate-200 mr-6 leading-relaxed">🤖 ${escapeHtml(answer)}</div>`;
+        chat.scrollTop = chat.scrollHeight;
+      }, 300);
+    }
+
     window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         openSearchModal();
+      }
+      if (e.key === 'Escape') {
+        closeSearchModal();
+        closeRegisterModal();
+        closeCreateModal();
+        closeAddClubModal();
+        closeTicketModal();
       }
     });
 
