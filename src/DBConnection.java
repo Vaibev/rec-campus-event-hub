@@ -3,20 +3,22 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/event_db";
-    private static final String USER = "root";
-    private static final String PASSWORD = "root"; // your MySQL workbench password
+    // Paste your Aiven details here:
+    private static final String HOST = "mysql-188c3cd1-vvaibevv00-2007.f.aivencloud.com";      // e.g., mysql-xxxx.f.aivencloud.com
+    private static final String PORT = "19933";      // e.g., 12450
+    private static final String DB_NAME = "defaultdb";
+    private static final String USER = "avnadmin";
+    private static final String PASS = "AVNS_BQsDVSjde_FnhnwfAf_";  // your actual password string
 
-    public static Connection getConnection() {
-        Connection conn = null;
+    private static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DB_NAME 
+        + "?useSSL=true&requireSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+
+    public static Connection getConnection() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (ClassNotFoundException e) {
-            System.out.println("Driver Error: " + e.getMessage());
-        } catch (SQLException e) {
-            System.out.println("Connection Error: " + e.getMessage());
+            System.err.println("MySQL Driver not found: " + e.getMessage());
         }
-        return conn;
+        return DriverManager.getConnection(URL, USER, PASS);
     }
 }
