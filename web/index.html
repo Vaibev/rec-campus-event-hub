@@ -1019,7 +1019,7 @@
 
     async function loadClubs() {
       try {
-        const res = await fetch(`${API_URL}/clubs`);
+        const res = await fetch('/api/clubs');
         allClubs = await res.json();
 
         const homeClubs = document.getElementById("homeClubsGrid");
@@ -1070,7 +1070,7 @@
 
     async function loadEvents() {
   try {
-    const res = await fetch(`${API_URL}/api/events`);
+    const res = await fetch('/api/events');
     const events = await res.json();
     
     // Existing card grid render function (e.g., renderEvents(events);)
