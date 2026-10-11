@@ -241,23 +241,10 @@
           <div class="w-full max-w-md relative">
             <div class="absolute -inset-4 bg-gradient-to-tr from-rec-purple/20 to-rec-gold/20 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
 
-            <div class="glass-card rounded-2xl p-4 shadow-2xl border-white/10 mb-4 floating-card relative z-20">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">🔥 Flagship Hackathon</span>
-                <span class="text-[11px] font-mono text-rec-gold flex items-center gap-1"><i class="ph-bold ph-calendar"></i> Oct 28</span>
-              </div>
-              <h4 class="font-bold text-white text-sm">Phoenix 24H Campus Hackathon</h4>
-              <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5"><i class="ph-bold ph-map-pin text-rec-purpleGlow"></i> Tech Block Auditorium</p>
-            </div>
-
-            <div class="glass-card rounded-2xl p-4 shadow-2xl border-white/10 ml-2 sm:ml-8 -mt-2 floating-card-delayed relative z-10">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">🤖 Workshop</span>
-                <span class="text-[11px] font-mono text-slate-300 flex items-center gap-1"><i class="ph-bold ph-calendar"></i> Nov 04</span>
-              </div>
-              <h4 class="font-bold text-white text-sm">Autonomous Embedded IoT Sprint</h4>
-              <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5"><i class="ph-bold ph-chalkboard-teacher text-rec-purpleGlow"></i> CSE Computing Lab 3</p>
-            </div>
+            <!-- Dynamic Hero Live Cards Container -->
+<div id="heroLiveEvents" class="relative">
+  <!-- Dynamically populated via JavaScript -->
+</div>
           </div>
         </div>
 
@@ -1082,18 +1069,76 @@
     }
 
     async function loadEvents() {
-      try {
-        const res = await fetch(`${API_URL}/events`);
-        allEvents = await res.json();
-        
-        renderHomeEvents();
-        applyEventFilters();
-        renderMiniCalendar();
-        renderFullCalendar();
-      } catch (err) {
-        console.error("Events load failure:", err);
+  try {
+    const res = await fetch(`${API_URL}/api/events`);
+    const events = await res.json();
+    
+    // Existing card grid render function (e.g., renderEvents(events);)
+    renderEvents(events);
+
+    // Call the hero updater with the live database events:
+    renderHeroLiveEvents(events);
+
+  } catch (err) {
+    console.error("Failed to load events", err);
+  }
+}
+    function renderHeroLiveEvents(eventsList) {
+  const container = document.getElementById("heroLiveEvents");
+  if (!container) return;
+
+  if (!eventsList || eventsList.length === 0) {
+    container.innerHTML = `
+      <div class="glass-card rounded-2xl p-4 shadow-2xl border-white/10 floating-card relative z-20">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-500/10 text-slate-400 border border-slate-500/20">Campus Status</span>
+        </div>
+        <h4 class="font-bold text-white text-sm">No Upcoming Events</h4>
+        <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5"><i class="ph-bold ph-info text-rec-purpleGlow"></i> Check back soon for new club activities</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Pick the first 2 upcoming live events
+  const preview = eventsList.slice(0, 2);
+
+  const cardsHtml = preview.map((ev, index) => {
+    // Format date string (e.g., "2026-10-28" -> "Oct 28")
+    let displayDate = ev.event_date || "Upcoming";
+    if (ev.event_date) {
+      const parts = ev.event_date.split('-');
+      if (parts.length === 3) {
+        const d = new Date(parts[0], parts[1] - 1, parts[2]);
+        displayDate = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       }
     }
+
+    const isFirst = index === 0;
+    const cardClass = isFirst
+      ? "glass-card rounded-2xl p-4 shadow-2xl border-white/10 mb-4 floating-card relative z-20"
+      : "glass-card rounded-2xl p-4 shadow-2xl border-white/10 ml-2 sm:ml-8 -mt-2 floating-card-delayed relative z-10";
+
+    const badgeColor = isFirst
+      ? "bg-rose-500/10 text-rose-400 border-rose-500/20"
+      : "bg-purple-500/10 text-purple-300 border-purple-500/20";
+
+    const badgeIcon = isFirst ? "🔥" : "🤖";
+
+    return `
+      <div class="${cardClass}">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${badgeColor} border">${badgeIcon} ${ev.category || 'Event'}</span>
+          <span class="text-[11px] font-mono text-rec-gold flex items-center gap-1"><i class="ph-bold ph-calendar"></i> ${displayDate}</span>
+        </div>
+        <h4 class="font-bold text-white text-sm">${ev.title || 'Untitled Event'}</h4>
+        <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5"><i class="ph-bold ph-map-pin text-rec-purpleGlow"></i> ${ev.venue || 'Campus Venue'}</p>
+      </div>
+    `;
+  }).join('');
+
+  container.innerHTML = cardsHtml;
+}
 
     function getStatusBadge(filled, total) {
       const pct = (filled / total) * 100;
